@@ -1,5 +1,5 @@
-import type {Metadata} from "next";
-import {Mona_Sans} from "next/font/google";
+import type { Metadata } from "next";
+import { Mona_Sans } from "next/font/google";
 import "./globals.css";
 
 const monaSans = Mona_Sans({
@@ -14,20 +14,20 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
         <html lang="en" className="dark">
-        <head>
-            <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-        </head>
-        <body
-            className={`${monaSans.className} antialiased`}
-        >
-        {children}
-        </body>
+            <head>
+                <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+            </head>
+            <body
+                className={`${monaSans.className} antialiased`}
+            >
+                {children}
+            </body>
         </html>
     );
 }
