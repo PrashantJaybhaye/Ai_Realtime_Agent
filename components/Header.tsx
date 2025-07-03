@@ -4,12 +4,12 @@ import { Button } from './ui/button'
 
 const Header = () => {
     return (
-        <nav className='flex flex-row justify-between items-center shadow-sm rounded-lg'>
-            <Link href="/" className='flex items-center gap-3 group'>
+        <nav className='flex flex-row justify-between items-center rounded-lg'>
+            <Link href="/" className='flex items-center group'>
                 <div className='flex items-center justify-center rounded-lg transition-colors'>
                     <svg
-                        width={64}
-                        height={64}
+                        width={54}
+                        height={54}
                         viewBox="0 0 64 64"
                         xmlns="http://www.w3.org/2000/svg"
                     >
@@ -50,7 +50,7 @@ const Header = () => {
                 <Button
                     variant="default"
                 >
-                    Sign In
+                    Avatar
                 </Button>
             </div>
         </nav>
