@@ -8,7 +8,7 @@ import React from 'react'
 const Page = () => {
     return (
         <>
-            <section className="card-cta">
+            <section className="card-cta flex max-sm:flex-col-reverse">
                 <div className="flex flex-col gap-6 max-w-xl text-balance">
                     <h2 className="text-neutral-200 line-clamp-3">
                         Sharpen Your Interview Skills with AI-Powered Practice
@@ -26,7 +26,7 @@ const Page = () => {
                     alt="AI Interview Assistant Illustration"
                     width={350}
                     height={350}
-                    className="hidden sm:block"
+                    className="max-sm:size-48 mb-3 sm:block"
                     priority
                 />
             </section>
