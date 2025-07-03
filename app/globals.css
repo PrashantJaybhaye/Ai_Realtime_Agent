@@ -140,10 +140,10 @@
     @apply bg-background text-foreground;
   }
   p {
-    @apply text-light-100;
+    @apply text-light-100/80;
   }
   h2 {
-    @apply text-3xl font-semibold;
+    @apply text-3xl lg:text-5xl font-semibold;
   }
   h3 {
     @apply text-2xl font-semibold;
@@ -173,8 +173,9 @@
     @apply flex min-h-14 w-full items-center justify-center gap-1.5 rounded-md;
   }
   .btn-primary {
-    @apply w-fit !bg-primary-200 !text-dark-100 hover:!bg-primary-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
+    @apply w-fit !bg-dark-200 !text-white hover:!bg-dark-300 !rounded-lg !font-bold px-5 cursor-pointer min-h-10;
   }
+
   .btn-secondary {
     @apply w-fit !bg-dark-200 !text-primary-200 hover:!bg-dark-200/80 !rounded-full !font-bold px-5 cursor-pointer min-h-10;
   }
@@ -305,7 +306,7 @@
 }
 
 @utility blue-gradient-dark {
-  @apply bg-gradient-to-b from-[#171532] to-[#08090D];
+  @apply bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a];
 }
 
 @utility blue-gradient {
