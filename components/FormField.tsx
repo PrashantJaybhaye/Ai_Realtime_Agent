@@ -38,7 +38,7 @@ const FormField = <T extends FieldValues>({
               {...field}
             />
           </FormControl>
-          <FormMessage>{fieldState?.error?.message}</FormMessage>
+          <FormMessage className="text-xs">{fieldState?.error?.message}</FormMessage>
         </FormItem>
       )}
     />

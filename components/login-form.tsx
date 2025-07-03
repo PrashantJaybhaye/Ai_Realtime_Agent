@@ -10,13 +10,14 @@ import {
 } from "@/components/ui/form"
 import { toast } from "sonner"
 import FormField from "./FormField"
+import { useRouter } from "next/navigation"
 
 
 const authFormSchema = (type: FormType) => {
   return z.object({
-    name: type === 'sign-up' ? z.string().min(3, "Name must be at least 3 characters") : z.string().optional(),
-    email: z.string().email("Enter a valid email"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    name: type === 'sign-up' ? z.string().min(3, "Name should be at least 3 characters long.") : z.string().optional(),
+    email: z.string().min(1, "Email is required").email("Please enter a valid email address."),
+    password: z.string().min(6, "Password must contain at least 6 characters."),
   })
 }
 
@@ -25,6 +26,7 @@ export function LoginForm({
   type,
   ...props
 }: React.ComponentProps<"form"> & { type: FormType }) {
+  const router = useRouter();
   const formSchema = authFormSchema(type);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,14 +42,16 @@ export function LoginForm({
     try {
       if (type === "sign-up") {
         console.log('SIGN UP', values)
-        toast.success("Account created successfully!")
+        toast.success("You’re all set! Sign in to continue.", { position: "top-right" })
+        router.push('/sign-in')
       } else {
         console.log("SIGN IN", values)
-        toast.success("Logged in successfully!")
+        toast.success("Authentication successful. You’re now logged in.", { position: "top-right" })
+        router.push('/')
       }
     } catch (error) {
       console.log(error);
-      toast.error(`There was error: ${error}`)
+      toast.error(`There was error: ${error}`, { position: "top-right" })
     }
   }
 
@@ -62,7 +66,7 @@ export function LoginForm({
           </h1>
           <p className="text-muted-foreground text-sm text-balance">
             {isSignIn
-              ? "Enter your credentials to continue interview prep"
+              ? "Enter your credentials to continue your interview prep"
               : "Start your journey with Sidvia — your AI interview coach"}
           </p>
         </div>
