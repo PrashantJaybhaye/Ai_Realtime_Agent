@@ -31,6 +31,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
                     <h3 className="text-2xl font-semibold text-white capitalize line-clamp-2">
                         {role} Interview
                     </h3>
+                    <p>{userId} hide later</p>
                 </div>
 
                 {/* Metadata */}
