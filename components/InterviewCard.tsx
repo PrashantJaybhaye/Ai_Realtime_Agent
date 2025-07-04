@@ -20,7 +20,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
                 </div>
 
                 {/* Header */}
-                <div className="flex flex-row items-center gap-4 mt-2">
+                <div className="flex flex-row items-center gap-4">
                     <Image
                         src={getRandomInterviewCover()}
                         alt="Interview cover"
@@ -34,7 +34,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
                 </div>
 
                 {/* Metadata */}
-                <div className="flex flex-row justify-start gap-3 text-sm text-light-100/80">
+                <div className="flex flex-row justify-start gap-2 text-sm text-light-100/80">
                     <div className="flex items-center gap-2 text-sm text-gray-500 font-bold">
                         <Image
                             src="/calendar.svg"
@@ -52,10 +52,12 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
                 </div>
 
                 {/* Feedback Summary */}
-                <p className="text-sm line-clamp-3 text-left px-1">
-                    {feedback?.finalAssessment ??
-                        "You haven't taken this interview yet. Take it now to improve your skills!"}
-                </p>
+                <div className='p-3 rounded-lg mb-4 bg-blue-900/20 border border-blue-900/30'>
+                    <p className="text-sm line-clamp-3 text-left text-blue-700 dark:text-blue-300">
+                        {feedback?.finalAssessment ??
+                            "You haven't taken this interview yet. Take it now to improve your skills!"}
+                    </p>
+                </div>
 
                 {/* Tech + Button */}
                 <div className="flex justify-between items-center mt-2">
