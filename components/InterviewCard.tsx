@@ -12,7 +12,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
     const formattedDate = dayjs(feedback?.createdAt || createdAt || Date.now()).format('MMM D, YYYY')
 
     return (
-        <div className="card-border w-[360px] max-sm:w-full overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 relative min-h-96">
+        <div className="card-border w-[360px] max-sm:w-full overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 relative">
             <div className="card-interview ">
                 {/* Badge */}
                 <div className="absolute top-0 right-0 px-4 py-1 rounded-bl-lg bg-blue-900/30 z-10 ">
@@ -20,7 +20,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
                 </div>
 
                 {/* Header */}
-                <div className="flex flex-row items-center gap-4">
+                <div className="flex flex-col items-start gap-4">
                     <Image
                         src={getRandomInterviewCover()}
                         alt="Interview cover"
@@ -28,7 +28,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
                         height={72}
                         className="object-cover rounded-full border-2 border-gray-500"
                     />
-                    <h3 className="text-lg font-semibold text-white capitalize line-clamp-2">
+                    <h3 className="text-2xl font-semibold text-white capitalize line-clamp-2">
                         {role} Interview
                     </h3>
                 </div>
