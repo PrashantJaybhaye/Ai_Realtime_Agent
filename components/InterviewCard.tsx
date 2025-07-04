@@ -12,7 +12,7 @@ const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }
     const formattedDate = dayjs(feedback?.createdAt || createdAt || Date.now()).format('MMM D, YYYY')
 
     return (
-        <div className="card-border w-[380px] max-sm:w-full overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 relative">
+        <div className="card-border w-[360px] max-sm:w-full overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 relative min-h-96">
             <div className="card-interview ">
                 {/* Badge */}
                 <div className="absolute top-0 right-0 px-4 py-1 rounded-bl-lg bg-blue-900/30 z-10 ">
