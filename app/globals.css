@@ -158,10 +158,10 @@
 
 @layer components {
   .btn-call {
-    @apply inline-block px-7 py-3 font-bold text-sm leading-5 text-white transition-colors duration-150 bg-success-100 border border-transparent rounded-full shadow-sm focus:outline-none focus:shadow-2xl active:bg-success-200 hover:bg-success-200 min-w-28 cursor-pointer items-center justify-center overflow-visible;
+    @apply inline-block px-7 py-3 font-bold text-sm leading-5 text-white transition-colors duration-150 bg-success-100/70 border border-transparent rounded-full shadow-sm focus:outline-none focus:shadow-2xl active:bg-success-200/70 hover:bg-success-200/70 min-w-28 cursor-pointer items-center justify-center overflow-visible;
 
     .span {
-      @apply bg-success-100 h-[85%] w-[65%];
+      @apply bg-success-100/70 h-[85%] w-[65%];
     }
   }
 
@@ -212,7 +212,7 @@
     @apply flex sm:flex-row flex-col gap-10 items-center justify-between w-full;
 
     h3 {
-      @apply text-center text-primary-200 mt-5;
+      @apply text-center text-neutral-400 mt-5;
     }
 
     .card-interviewer {
@@ -223,27 +223,27 @@
       @apply z-10 flex items-center justify-center blue-gradient rounded-full size-[120px] relative;
 
       .animate-speak {
-        @apply absolute inline-flex size-5/6 animate-ping rounded-full bg-primary-200 opacity-75;
+        @apply absolute inline-flex size-5/6 animate-ping rounded-full bg-neutral-600 opacity-75;
       }
     }
 
     .card-border {
-      @apply border-gradient p-0.5 rounded-2xl flex-1 sm:basis-1/2 w-full h-[400px] max-md:hidden;
+      @apply rounded-lg flex-1 sm:basis-1/2 w-full h-[400px] max-md:hidden;
     }
 
     .card-content {
-      @apply flex flex-col gap-2 justify-center items-center p-7 dark-gradient rounded-2xl min-h-full;
+      @apply flex flex-col gap-2 border border-neutral-600 justify-center items-center p-7 blue-gradient-dark rounded-lg min-h-full;
     }
   }
 
   .transcript-border {
-    @apply border-gradient p-0.5 rounded-2xl w-full;
+    @apply border border-neutral-600 rounded-lg w-full;
 
     .transcript {
-      @apply dark-gradient rounded-2xl  min-h-12 px-5 py-3 flex items-center justify-center;
+      @apply blue-gradient-dark rounded-lg min-h-12 px-5 py-3 flex items-center justify-center;
 
       p {
-        @apply text-lg text-center text-white;
+        @apply text-lg text-center text-neutral-400;
       }
     }
   }

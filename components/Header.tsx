@@ -52,7 +52,7 @@ export default function Header() {
 
                 {/* Navigation Links */}
                 <div className="hidden md:flex items-center gap-6">
-                    {['Interview', 'Pricing', 'Resources'].map((item) => {
+                    {['#','Interview', 'Pricing', 'Resources'].map((item) => {
                         const href = `/${item.toLowerCase()}`
                         return (
                             <div
