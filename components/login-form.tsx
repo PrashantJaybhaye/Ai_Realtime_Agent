@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
 import { auth } from "@/firebase/client"
 import { signIn, signUp } from "@/lib/actions/auth.action"
+import { FirebaseError } from "firebase/app"
 
 
 const authFormSchema = (type: FormType) => {
@@ -83,8 +84,29 @@ export function LoginForm({
         router.push('/')
       }
     } catch (error) {
-      console.log(error);
-      toast.error(`There was error: ${error}`)
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            toast.error("This email is already in use. Please sign in instead.");
+            break;
+          case "auth/invalid-credential":
+            toast.error("Invalid credentials. Please try again.");
+            break;
+          case "auth/invalid-email":
+            toast.error("Invalid email address.");
+            break;
+          case "auth/wrong-password":
+            toast.error("Incorrect password.");
+            break;
+          case "auth/user-not-found":
+            toast.error("No user found with this email.");
+            break;
+          default:
+            toast.error(error.message || "Something went wrong");
+        }
+      } else {
+        toast.error("Unexpected error. Please try again later.");
+      }
     }
   }
 
