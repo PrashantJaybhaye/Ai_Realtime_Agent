@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Button } from './ui/button'
 import Loader from './Loader'
+import { logout } from '@/lib/actions/auth.action'
 
 export default function Header() {
     const [isNavigating, setIsNavigating] = useState(false)
@@ -22,12 +23,17 @@ export default function Header() {
         router.push(href)
     }
 
+    const handleLogout = async () => {
+        await logout()
+        router.push('/sign-in')
+    }
+
     return (
         <>
             {/* Global Loading Overlay */}
             {isNavigating && (
                 <div className="fixed inset-0 z-50 bg-[#0B0B0B] flex flex-col items-center justify-center gap-2">
-                    <Loader/>
+                    <Loader />
                 </div>
 
             )}
@@ -52,7 +58,7 @@ export default function Header() {
 
                 {/* Navigation Links */}
                 <div className="hidden md:flex items-center gap-6">
-                    {['#','Interview', 'Pricing', 'Resources'].map((item) => {
+                    {['#', 'Interview', 'Pricing', 'Resources'].map((item) => {
                         const href = `/${item.toLowerCase()}`
                         return (
                             <div
@@ -68,9 +74,15 @@ export default function Header() {
                 </div>
 
                 {/* User Button */}
-                <Button variant="default" className="rounded-full">
-                    Avatar
-                </Button>
+                <div className="flex items-center gap-3">
+                    <Button
+                        variant="destructive"
+                        className="text-sm"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </Button>
+                </div>
             </nav>
         </>
     )
