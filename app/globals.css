@@ -264,12 +264,16 @@
     @apply flex mx-auto max-w-7xl flex-col gap-12 my-12 px-16 max-sm:px-4 max-sm:my-8;
   }
 
+  .root-menu {
+    @apply fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[#181818] flex mx-auto max-w-7xl flex-col pt-12 sm:px-6 max-sm:px-4 max-sm:pt-8 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10;
+  }
+
   .card-cta {
     @apply flex flex-row blue-gradient-dark rounded-3xl px-18 py-6 items-center justify-between max-sm:px-4;
   }
 
   .interviews-section {
-    @apply flex flex-wrap gap-4 max-lg:flex-col w-full items-stretch;
+    @apply flex flex-wrap gap-4 max-lg:flex-row w-full items-stretch;
   }
 
   .interview-text {
