@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { auth } from "@/firebase/client"
 import { signIn, signUp } from "@/lib/actions/auth.action"
 import { FirebaseError } from "firebase/app"
-
+import { useState } from "react"
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -30,6 +30,7 @@ export function LoginForm({
   type,
   ...props
 }: React.ComponentProps<"form"> & { type: FormType }) {
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
   const formSchema = authFormSchema(type);
 
@@ -43,6 +44,8 @@ export function LoginForm({
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true); // Start loading
+
     try {
       if (type === "sign-up") {
         const { name, email, password } = values;
@@ -107,6 +110,8 @@ export function LoginForm({
       } else {
         toast.error("Unexpected error. Please try again later.");
       }
+    } finally {
+      setLoading(false); // End loading in all cases
     }
   }
 
@@ -147,9 +152,11 @@ export function LoginForm({
             placeholder="Enter Password"
             type="password"
           />
-
-          <Button type="submit" className="w-full">
-            {isSignIn ? "Login" : "Get Started with Sidvia"}
+          
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading 
+            ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+            : isSignIn ? "Login" : "Get Started with Sidvia"}
           </Button>
         </div>
         <div className="text-center text-sm">
