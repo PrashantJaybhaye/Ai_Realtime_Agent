@@ -24,7 +24,7 @@ const page = () => {
         <img
           src="/Authentication_Img.jpg"
           alt="Image"
-          className="absolute inset-0 h-full w-full object-cover brightness-[0.6] grayscale"
+          className="absolute inset-0 h-full w-full object-cover brightness-[1.0] grayscale"
         />
       </div>
     </div>
