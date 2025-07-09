@@ -273,7 +273,19 @@
   }
 
   .interviews-section {
-    @apply flex flex-wrap gap-4 max-lg:flex-row w-full items-stretch;
+    @apply flex flex-wrap gap-6 max-lg:flex-row w-full items-stretch;
+  }
+
+  .stats-card {
+    @apply rounded-xl border border-border bg-card p-6 text-center shadow-sm;
+  }
+
+  .stats-icon {
+    @apply mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary;
+  }
+
+  .grid-cards {
+    @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
   }
 
   .interview-text {
