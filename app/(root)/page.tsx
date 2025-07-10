@@ -85,33 +85,25 @@ const Page = () => {
             </section>
 
             {/* Past Interviews Section */}
-            <section className="flex flex-col gap-6 mt-16">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-foreground">Recent Interviews <p className='text-lg max-sm:text-sm'>Continue where you left off</p></h2>
-
-                    <Button variant="outline" size="sm">
-                        View All
-                    </Button>
-                </div>
+            <section className="flex flex-col gap-4 mt-12">
+                <h2>Your Past Interviews</h2>
                 <div className="interviews-section">
                     {dummyInterviews.map((interview) => (
                         <InterviewCard {...interview} key={interview.id} />
                     ))}
+
+                    {/* <p className="text-light-100/70 italic">You haven’t taken any interviews yet.</p> */}
                 </div>
             </section>
 
-            {/* Explore Modules Section */}
-            <section className="flex flex-col gap-6 mt-5">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-foreground">Popular Interview Templates<p className='text-lg max-sm:text-sm'>Start with proven interview formats</p></h2>
-                    <Button variant="outline" size="sm">
-                        Browse All
-                    </Button>
-                </div>
+            <section className="flex flex-col gap-4 mt-12">
+                <h2>Explore Interview Modules</h2>
                 <div className="interviews-section">
                     {dummyInterviews.map((interview) => (
-                        <InterviewCard {...interview} key={`module-${interview.id}`} />
+                        <InterviewCard {...interview} key={interview.id} />
                     ))}
+
+                    {/* <p className="text-light-100/70 italic">No interview modules available right now.</p> */}
                 </div>
             </section>
         </>

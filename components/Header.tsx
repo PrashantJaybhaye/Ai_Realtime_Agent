@@ -72,9 +72,9 @@ export default function Header() {
                             <div
                                 key={item}
                                 onClick={() => handleNavigation(href)}
-                                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${pathname === href
-                                    ? "bg-accent text-accent-foreground"
-                                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer ${pathname === href
+                                    ? " text-accent-foreground underline underline-offset-8"
+                                    : "text-gray-400 hover:text-foreground hover:bg-accent/50"
                                     }`}
                             >
                                 {item}
