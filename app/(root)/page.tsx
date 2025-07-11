@@ -1,12 +1,26 @@
 import InterviewCard from '@/components/InterviewCard'
 import { Button } from '@/components/ui/button'
-import { dummyInterviews } from '@/constants'
+// import { dummyInterviews } from '@/constants'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Play, Sparkles, TrendingUp, Users, Zap } from 'lucide-react'
+import { getCurrentUser, getInterviewByUserId, getLatestInterviews } from '@/lib/actions/auth.action'
+import UserError from '@/components/UserError'
 
-const Page = () => {
+const Page = async () => {
+    const user = await getCurrentUser();
+    if (!user) return <UserError />;
+
+    const [userInterviews, latestInterviews] = await Promise.all([
+        getInterviewByUserId(user.id),
+        getLatestInterviews({ userId: user.id }),
+    ]);
+
+    const hasPastInterviews = Array.isArray(userInterviews) && userInterviews.length > 0;
+    const hasUpcomingInterviews = Array.isArray(latestInterviews) && latestInterviews.length > 0;
+
+
     return (
         <>
             {/* Hero Section */}
@@ -88,22 +102,31 @@ const Page = () => {
             <section className="flex flex-col gap-4 mt-12">
                 <h2>Your Past Interviews</h2>
                 <div className="interviews-section">
-                    {dummyInterviews.map((interview) => (
-                        <InterviewCard {...interview} key={interview.id} />
-                    ))}
+                    {
+                        hasPastInterviews ? (
+                            userInterviews?.map((interview) => (
+                                <InterviewCard {...interview} key={interview.id} />
 
-                    {/* <p className="text-light-100/70 italic">You haven’t taken any interviews yet.</p> */}
+                            )))
+                            : (<p className="text-light-100/70 italic">You haven’t taken any interviews yet.</p>)
+                    }
+
                 </div>
             </section>
 
             <section className="flex flex-col gap-4 mt-12">
                 <h2>Explore Interview Modules</h2>
                 <div className="interviews-section">
-                    {dummyInterviews.map((interview) => (
-                        <InterviewCard {...interview} key={interview.id} />
-                    ))}
+                    {
+                        hasUpcomingInterviews ? (
+                            latestInterviews?.map((interview) => (
+                                <InterviewCard {...interview} key={interview.id} />
 
-                    {/* <p className="text-light-100/70 italic">No interview modules available right now.</p> */}
+                            )))
+                            : (<p className="text-light-100/70 italic">No interview modules available right now.</p>)
+                    }
+
+
                 </div>
             </section>
         </>

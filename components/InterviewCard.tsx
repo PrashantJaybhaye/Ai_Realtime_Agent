@@ -6,7 +6,7 @@ import { getRandomInterviewCover } from '@/lib/utils'
 import { Button } from './ui/button' 
 import DisplayTechIcons from './DisplayTechIcons' 
  
-const InterviewCard = ({ interviewId, userId, role, type, techstack, createdAt }: 
+const InterviewCard = ({ interviewId, role, type, techstack, createdAt }: 
 InterviewCardProps) => { 
     const feedback = null as Feedback | null 
     const normalizedType = /mix/gi.test(type) ? 'Mixed' : type 
@@ -34,8 +34,7 @@ hover:shadow-md transition-all duration-200 hover:-translate-y-0.5 relative">
                     /> 
                     <h3 className="text-2xl font-semibold text-white capitalize line-clamp-2"> 
                         {role} Interview 
-                    </h3> 
-                    <p>{userId} hide later</p> 
+                    </h3>    
                 </div> 
  
                 {/* Metadata */} 
