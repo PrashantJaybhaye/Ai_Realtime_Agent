@@ -6,31 +6,7 @@ import { Button } from "./ui/button"
 import DisplayTechIcons from "./DisplayTechIcons"
 import { Calendar, Star, Play, Clock, Target, Zap } from "lucide-react"
 
-interface Feedback {
-  id: string
-  interviewId: string
-  totalScore: number
-  categoryScores: Array<{
-    name: string
-    score: number
-    comment: string
-  }>
-  strengths: string[]
-  areasForImprovement: string[]
-  finalAssessment: string
-  createdAt: string
-}
-
-interface InterviewCardProps {
-  interviewId?: string
-  userId?: string
-  role: string
-  type: string
-  techstack: string[]
-  createdAt?: string
-}
-
-const InterviewCard = ({ interviewId, role, type, techstack, createdAt }: InterviewCardProps) => {
+const InterviewCard = ({ id, role, type, techstack, createdAt }: InterviewCardProps) => {
   const feedback = null as Feedback | null
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type
   const formattedDate = dayjs(feedback?.createdAt || createdAt || Date.now()).format("MMM D, YYYY")
@@ -121,7 +97,11 @@ const InterviewCard = ({ interviewId, role, type, techstack, createdAt }: Interv
           <div className="pt-2 border-t border-border">
             <Button className="w-full btn-primary text-sm font-semibold group/button">
               <Link
-                href={feedback ? `/interview/${interviewId}/feedback` : `/interview/${interviewId}`}
+                href={
+                  feedback
+                    ? `/interview/${id}/feedback`
+                    : `/interview/${id}`
+                }
                 className="flex items-center justify-center gap-2 w-full"
               >
                 <Play className="h-4 w-4" />
