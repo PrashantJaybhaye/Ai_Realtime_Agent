@@ -5,14 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { 
-  User, 
-  Mail, 
-  Shield, 
-  Activity,
-  CheckCircle,
-  XCircle,
-} from 'lucide-react';
+import { User, Mail, Shield, Activity, CheckCircle, XCircle } from 'lucide-react';
 import dayjs from 'dayjs';
 
 interface UserDetails {
@@ -45,7 +38,6 @@ export default function UserDetailsModal({ userId, isOpen, onOpenChange }: UserD
 
   const fetchUserDetails = async () => {
     if (!userId) return;
-
     setLoading(true);
     try {
       const response = await fetch('/api/admin/users', {
@@ -53,7 +45,6 @@ export default function UserDetailsModal({ userId, isOpen, onOpenChange }: UserD
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'view', userId })
       });
-
       if (response.ok) {
         const data = await response.json();
         setUserDetails(data.user);
@@ -65,15 +56,14 @@ export default function UserDetailsModal({ userId, isOpen, onOpenChange }: UserD
     }
   };
 
-  const formatDate = (dateString: string) => {
-    return dayjs(dateString).format('MMM D, YYYY h:mm A');
-  };
+  const formatDate = (dateString: string) =>
+    dayjs(dateString).format('MMM D, YYYY h:mm A');
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-xl sm:max-w-lg w-full">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 text-xl sm:text-2xl">
             <User className="w-5 h-5" />
             User Details
           </DialogTitle>
@@ -81,37 +71,35 @@ export default function UserDetailsModal({ userId, isOpen, onOpenChange }: UserD
 
         {loading ? (
           <div className="space-y-4">
-            <Skeleton className="h-20 w-full" />
-            <Skeleton className="h-32 w-full" />
-            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full rounded-md" />
+            <Skeleton className="h-32 w-full rounded-md" />
+            <Skeleton className="h-20 w-full rounded-md" />
           </div>
         ) : userDetails ? (
-          <div className="space-y-6">
-            {/* User Header */}
-            <div className="flex items-center gap-4 p-4 bg-muted/30 rounded-lg">
-              <div className="h-16 w-16 bg-primary/20 rounded-full flex items-center justify-center">
-                <span className="text-xl font-bold text-primary">
-                  {userDetails.email.charAt(0).toUpperCase()}
-                </span>
+          <div className="space-y-6 text-sm sm:text-base">
+            {/* Header */}
+            <div className="flex gap-4 items-center p-4 bg-muted/40 rounded-xl">
+              <div className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-primary/10 text-primary font-bold text-xl sm:text-2xl">
+                {userDetails.email.charAt(0).toUpperCase()}
               </div>
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-foreground">{userDetails.email}</h3>
-                <p className="text-sm text-muted-foreground">ID: {userDetails.uid}</p>
-                <div className="flex items-center gap-2 mt-2">
+              <div className="flex flex-col gap-1">
+                <span className="text-xs font-bold text-foreground">{userDetails.email}</span>
+                <span className="text-xs sm:text-sm text-muted-foreground">ID: {userDetails.uid}</span>
+                <div className="flex flex-wrap gap-2 mt-2">
                   {userDetails.disabled ? (
                     <Badge variant="destructive" className="gap-1">
-                      <XCircle className="w-3 h-3" />
+                      <XCircle className="w-4 h-4" />
                       Disabled
                     </Badge>
                   ) : (
-                    <Badge variant="default" className="gap-1 bg-green-500">
-                      <CheckCircle className="w-3 h-3" />
+                    <Badge className="gap-1 bg-green-600 text-white">
+                      <CheckCircle className="w-4 h-4" />
                       Active
                     </Badge>
                   )}
                   {userDetails.emailVerified && (
                     <Badge variant="outline" className="gap-1">
-                      <Shield className="w-3 h-3" />
+                      <Shield className="w-4 h-4" />
                       Verified
                     </Badge>
                   )}
@@ -119,52 +107,47 @@ export default function UserDetailsModal({ userId, isOpen, onOpenChange }: UserD
               </div>
             </div>
 
-            {/* Account Information */}
-            <div className="grid gap-4 md:grid-cols-2">
+            {/* Details Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Account Info */}
               <div className="space-y-3">
-                <h4 className="font-medium text-foreground flex items-center gap-2">
+                <h4 className="font-medium flex items-center gap-2 text-foreground">
                   <Mail className="w-4 h-4" />
-                  Account Information
+                  Account Info
                 </h4>
-                <div className="space-y-2 text-sm">
+                <div className="text-xs space-y-2">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Email:</span>
-                    <span className="text-foreground">{userDetails.email}</span>
+                    <span>{userDetails.email}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Email Verified:</span>
-                    <span className="text-foreground">
-                      {userDetails.emailVerified ? 'Yes' : 'No'}
-                    </span>
+                    <span className="text-muted-foreground">Verified:</span>
+                    <span>{userDetails.emailVerified ? 'Yes' : 'No'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Status:</span>
-                    <span className="text-foreground">
-                      {userDetails.disabled ? 'Disabled' : 'Active'}
-                    </span>
+                    <span>{userDetails.disabled ? 'Disabled' : 'Active'}</span>
                   </div>
                 </div>
               </div>
 
+              {/* Activity Info */}
               <div className="space-y-3">
-                <h4 className="font-medium text-foreground flex items-center gap-2">
+                <h4 className="font-medium flex items-center gap-2 text-foreground">
                   <Activity className="w-4 h-4" />
-                  Activity Information
+                  Activity Info
                 </h4>
-                <div className="space-y-2 text-sm">
+                <div className="text-xs space-y-2">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Created:</span>
-                    <span className="text-foreground">
-                      {formatDate(userDetails.metadata.creationTime)}
-                    </span>
+                    <span>{formatDate(userDetails.metadata.creationTime)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Last Sign In:</span>
-                    <span className="text-foreground">
-                      {userDetails.metadata.lastSignInTime 
+                    <span>
+                      {userDetails.metadata.lastSignInTime
                         ? formatDate(userDetails.metadata.lastSignInTime)
-                        : 'Never'
-                      }
+                        : 'Never'}
                     </span>
                   </div>
                 </div>
@@ -173,29 +156,27 @@ export default function UserDetailsModal({ userId, isOpen, onOpenChange }: UserD
 
             {/* Custom Claims */}
             {userDetails.customClaims && Object.keys(userDetails.customClaims).length > 0 && (
-              <div className="space-y-3">
-                <h4 className="font-medium text-foreground flex items-center gap-2">
+              <div className="space-y-2">
+                <h4 className="font-medium flex items-center gap-2 text-foreground">
                   <Shield className="w-4 h-4" />
                   Custom Claims
                 </h4>
-                <div className="bg-muted/30 rounded-lg p-3">
-                  <pre className="text-xs text-muted-foreground overflow-x-auto">
-                    {JSON.stringify(userDetails.customClaims, null, 2)}
-                  </pre>
+                <div className="bg-muted/30 p-3 rounded-md overflow-x-auto text-xs">
+                  <pre className="whitespace-pre-wrap">{JSON.stringify(userDetails.customClaims, null, 2)}</pre>
                 </div>
               </div>
             )}
 
-            {/* Actions */}
-            <div className="flex justify-end gap-2 pt-4 border-t">
+            {/* Footer Action */}
+            <div className="flex justify-end pt-4 border-t">
               <Button variant="outline" onClick={() => onOpenChange(false)}>
                 Close
               </Button>
             </div>
           </div>
         ) : (
-          <div className="text-center py-8">
-            <p className="text-muted-foreground">Failed to load user details</p>
+          <div className="text-center py-12 text-muted-foreground">
+            Failed to load user details.
           </div>
         )}
       </DialogContent>

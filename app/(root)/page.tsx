@@ -51,7 +51,7 @@ const Page = async () => {
                         <Button asChild className="btn-primary max-sm:w-full">
                             <Link href="/interview">
                                 <Play className="h-4 w-4" />
-                                Start Interview
+                                Create Interview
                             </Link>
                         </Button>
                     </div>
