@@ -34,9 +34,15 @@ const Page = async () => {
 
                 {/* Content Area */}
                 <div className="relative z-10 flex flex-col justify-center max-w-xl gap-6 text-pretty">
-                    <div className="flex items-center gap-2 bg-yellow-950 text-yellow-400 font-medium text-sm rounded-full px-3 py-1 w-fit">
+                    <div className="flex items-center gap-2 bg-yellow-950 text-yellow-500/80 font-medium text-sm rounded-full px-3 py-1 w-fit">
                         <Sparkles className="w-4 h-4" />
                         AI-Powered Interview Practice
+                    </div>
+
+                    {/* Personalized Greeting */}
+                    <div className="text-xl sm:text-2xl font-semibold mb-1">
+                        {`Welcome, ${user.name}!`}
+                        {/* <p className="text-xs text-muted-foreground">{user.email}</p> */}
                     </div>
 
                     <h1 className="text-3xl sm:text-4xl font-bold leading-tight tracking-tight text-foreground">
