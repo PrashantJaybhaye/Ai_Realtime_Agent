@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Input } from '@/components/ui/input';
 import UserDetailsModal from '@/components/admin/UserDetailsModal';
+import DeleteConfirmationModal from '@/components/admin/DeleteConfirmationModal';
 import { 
   Users, 
   Search, 
@@ -64,6 +65,10 @@ export default function AdminDashboard() {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<{ id: string; email: string } | null>(null);
+  const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
 
   useEffect(() => {
     fetchUsers();
@@ -71,15 +76,30 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     filterUsers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users, searchTerm, statusFilter]);
+
+  useEffect(() => {
+    // Re-sort users when sort order changes
+    const sortedUsers = [...users].sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
+    setUsers(sortedUsers);
+  }, [sortOrder]);
 
   const fetchUsers = async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/users');
       const data = await response.json();
-      setUsers(data);
+      // Sort users by creation date (newest first by default)
+      const sortedUsers = data.sort((a: User, b: User) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+      });
+      setUsers(sortedUsers);
     } catch (error) {
       console.error('Error fetching users:', error);
       toast.error('Failed to fetch users');
@@ -121,6 +141,15 @@ export default function AdminDashboard() {
   };
 
   const handleUserAction = async (action: string, userId: string) => {
+    if (action === 'delete') {
+      const user = users.find(u => u.uid === userId);
+      if (user) {
+        setUserToDelete({ id: userId, email: user.email });
+        setDeleteModalOpen(true);
+      }
+      return;
+    }
+
     setActionLoading(userId);
     try {
       const response = await fetch('/api/admin/users', {
@@ -149,6 +178,11 @@ export default function AdminDashboard() {
       return;
     }
 
+    if (action === 'delete') {
+      setBulkDeleteModalOpen(true);
+      return;
+    }
+
     setActionLoading('bulk');
     try {
       const response = await fetch('/api/admin/users/bulk', {
@@ -167,6 +201,58 @@ export default function AdminDashboard() {
     } catch (error) {
       console.error(`Error bulk ${action}:`, error);
       toast.error(`Failed to ${action} selected users`);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const confirmSingleDelete = async () => {
+    if (!userToDelete) return;
+
+    setActionLoading(userToDelete.id);
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', userId: userToDelete.id })
+      });
+
+      if (response.ok) {
+        toast.success('User deleted successfully');
+        fetchUsers();
+        setDeleteModalOpen(false);
+        setUserToDelete(null);
+      } else {
+        throw new Error('Failed to delete user');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Failed to delete user');
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const confirmBulkDelete = async () => {
+    setActionLoading('bulk');
+    try {
+      const response = await fetch('/api/admin/users/bulk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', userIds: Array.from(selectedUsers) })
+      });
+
+      if (response.ok) {
+        toast.success('Users deleted successfully');
+        setSelectedUsers(new Set());
+        fetchUsers();
+        setBulkDeleteModalOpen(false);
+      } else {
+        throw new Error('Failed to delete users');
+      }
+    } catch (error) {
+      console.error('Error bulk deleting users:', error);
+      toast.error('Failed to delete selected users');
     } finally {
       setActionLoading(null);
     }
@@ -340,6 +426,25 @@ export default function AdminDashboard() {
                 Disabled
               </Button>
             </div>
+          </div>
+
+          {/* Sort Controls */}
+          <div className="flex md:items-center gap-2 my-6 max-sm:flex-col">
+            <span className="text-sm text-muted-foreground">Sort by signup:</span>
+            <Button
+              variant={sortOrder === 'newest' ? 'default' : 'outline'}
+              onClick={() => setSortOrder('newest')}
+              size="sm"
+            >
+              Newest First
+            </Button>
+            <Button
+              variant={sortOrder === 'oldest' ? 'default' : 'outline'}
+              onClick={() => setSortOrder('oldest')}
+              size="sm"
+            >
+              Oldest First
+            </Button>
           </div>
 
           {/* Bulk Actions */}
@@ -540,6 +645,23 @@ export default function AdminDashboard() {
         userId={selectedUserId}
         isOpen={isUserModalOpen}
         onOpenChange={setIsUserModalOpen}
+      />
+
+      {/* Delete Confirmation Modals */}
+      <DeleteConfirmationModal
+        isOpen={deleteModalOpen}
+        onOpenChange={setDeleteModalOpen}
+        onConfirm={confirmSingleDelete}
+        userEmail={userToDelete?.email}
+        isLoading={actionLoading === userToDelete?.id}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={bulkDeleteModalOpen}
+        onOpenChange={setBulkDeleteModalOpen}
+        onConfirm={confirmBulkDelete}
+        userCount={selectedUsers.size}
+        isLoading={actionLoading === 'bulk'}
       />
     </div>
   );

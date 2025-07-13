@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { AlertTriangle, Trash2, X } from 'lucide-react';
+import { AlertTriangle, Trash2 } from 'lucide-react';
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -22,20 +22,18 @@ export default function DeleteConfirmationModal({
   userCount, 
   isLoading 
 }: DeleteConfirmationModalProps) {
-  const [confirmText, setConfirmText] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
   const isBulkDelete = userCount && userCount > 1;
-  const expectedText = isBulkDelete ? 'DELETE USERS' : 'DELETE USER';
-  const isConfirmValid = confirmText === expectedText;
 
   const handleConfirm = () => {
-    if (isConfirmValid) {
+    if (confirmed) {
       onConfirm();
-      setConfirmText('');
+      setConfirmed(false);
     }
   };
 
   const handleClose = () => {
-    setConfirmText('');
+    setConfirmed(false);
     onOpenChange(false);
   };
 
@@ -43,67 +41,32 @@ export default function DeleteConfirmationModal({
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-red-600">
+          <DialogTitle className="flex items-center gap-2 text-red-400">
             <AlertTriangle className="w-5 h-5" />
-            Confirm Deletion
+            Delete {isBulkDelete ? 'Users' : 'User'}
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
-          {/* Warning Message */}
-          <div className="bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800/30 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-              <div className="space-y-2">
-                <h4 className="font-semibold text-red-800 dark:text-red-200">
-                  {isBulkDelete ? 'Delete Multiple Users' : 'Delete User Account'}
-                </h4>
-                <p className="text-sm text-red-700 dark:text-red-300">
-                  {isBulkDelete 
-                    ? `You are about to permanently delete ${userCount} user accounts. This action cannot be undone.`
-                    : `You are about to permanently delete the account for "${userEmail}". This action cannot be undone.`
-                  }
-                </p>
-              </div>
-            </div>
-          </div>
+          <p className="text-muted-foreground">
+            {isBulkDelete 
+              ? `Are you sure you want to delete ${userCount} users? This action cannot be undone.`
+              : `Are you sure you want to delete "${userEmail}"? This action cannot be undone.`
+            }
+          </p>
 
-          {/* Consequences List */}
-          <div className="space-y-2">
-            <h5 className="font-medium text-foreground">This will permanently:</h5>
-            <ul className="text-sm text-muted-foreground space-y-1 ml-4">
-              <li className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-muted-foreground rounded-full" />
-                Delete {isBulkDelete ? 'all selected user accounts' : 'the user account'}
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-muted-foreground rounded-full" />
-                Remove {isBulkDelete ? 'all associated' : 'associated'} user data
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-muted-foreground rounded-full" />
-                Revoke {isBulkDelete ? 'all authentication tokens' : 'authentication tokens'}
-              </li>
-              <li className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-muted-foreground rounded-full" />
-                Cannot be recovered or undone
-              </li>
-            </ul>
-          </div>
-
-          {/* Confirmation Input */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-foreground">
-              Type <span className="font-mono bg-muted px-1 rounded text-red-600">{expectedText}</span> to confirm:
-            </label>
+          <div className="flex items-center space-x-2">
             <input
-              type="text"
-              value={confirmText}
-              onChange={(e) => setConfirmText(e.target.value)}
-              placeholder={expectedText}
-              className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+              type="checkbox"
+              id="confirm-delete"
+              checked={confirmed}
+              onChange={(e) => setConfirmed(e.target.checked)}
+              className="rounded border-border"
               disabled={isLoading}
             />
+            <label htmlFor="confirm-delete" className="text-sm text-foreground">
+              I understand this action is permanent
+            </label>
           </div>
         </div>
 
@@ -112,15 +75,13 @@ export default function DeleteConfirmationModal({
             variant="outline" 
             onClick={handleClose}
             disabled={isLoading}
-            className="gap-2"
           >
-            <X className="w-4 h-4" />
             Cancel
           </Button>
           <Button 
             variant="destructive" 
             onClick={handleConfirm}
-            disabled={!isConfirmValid || isLoading}
+            disabled={!confirmed || isLoading}
             className="gap-2"
           >
             {isLoading ? (
@@ -128,7 +89,7 @@ export default function DeleteConfirmationModal({
             ) : (
               <Trash2 className="w-4 h-4" />
             )}
-            {isLoading ? 'Deleting...' : 'Delete Forever'}
+            {isLoading ? 'Deleting...' : 'Delete'}
           </Button>
         </DialogFooter>
       </DialogContent>
