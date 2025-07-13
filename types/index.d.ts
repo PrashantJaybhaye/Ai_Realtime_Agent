@@ -36,6 +36,7 @@ interface User {
   name: string;
   email: string;
   id: string;
+  isAdmin: boolean;
 }
 
 interface InterviewCardProps {
@@ -81,6 +82,7 @@ interface SignUpParams {
   name: string;
   email: string;
   password: string;
+  isAdmin?: boolean;
 }
 
 type FormType = "sign-in" | "sign-up";

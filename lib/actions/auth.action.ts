@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 const ONE_WEEK = 60 * 60 * 24 * 7;
 
 export async function signUp(params: SignUpParams) {
-  const { uid, name, email } = params;
+  const { uid, name, email, isAdmin = false } = params;
 
   try {
     const userRecord = await db.collection("users").doc(uid).get();
@@ -21,6 +21,7 @@ export async function signUp(params: SignUpParams) {
     await db.collection("users").doc(uid).set({
       name,
       email,
+      isAdmin,
     });
 
     return {
@@ -120,6 +121,11 @@ export async function getCurrentUser(): Promise<User | null> {
 export async function isAuthenticated() {
   const user = await getCurrentUser();
   return !!user;
+}
+
+export async function isAdminAuthenticated() {
+  const user = await getCurrentUser();
+  return !!user && user.isAdmin;
 }
 
 export async function logout() {
