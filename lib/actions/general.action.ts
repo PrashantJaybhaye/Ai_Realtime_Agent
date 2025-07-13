@@ -49,6 +49,25 @@ export async function createFeedback(params: CreateFeedbackParams) {
   const { interviewId, userId, transcript } = params;
 
   try {
+    // 🔍 Check if feedback already exists
+    const existingFeedback = await db
+      .collection("feedback")
+      .where("interviewId", "==", interviewId)
+      .where("userId", "==", userId)
+      .limit(1)
+      .get();
+
+    if (!existingFeedback.empty) {
+      // Return the existing feedback instead of creating a duplicate
+      const existingDoc = existingFeedback.docs[0];
+      return {
+        success: true,
+        feedbackId: existingDoc.id,
+        message: "Feedback already exists",
+      };
+    }
+
+    // 🎤 Format transcript
     const formattedTranscript = transcript
       .map(
         (sentence: { role: string; content: string }) =>
@@ -56,6 +75,7 @@ export async function createFeedback(params: CreateFeedbackParams) {
       )
       .join("");
 
+    // 🤖 Generate feedback using Gemini
     const {
       object: {
         totalScore,
@@ -81,9 +101,10 @@ export async function createFeedback(params: CreateFeedbackParams) {
         - **Confidence & Clarity**: Confidence in responses, engagement, and clarity.
         `,
       system:
-        "You are a professional interviewer name Sidvia AI analyzing a mock interview. Your task is to evaluate the candidate based on structured categories",
+        "You are a professional interviewer named Sidvia AI analyzing a mock interview. Your task is to evaluate the candidate based on structured categories.",
     });
 
+    // 💾 Save new feedback
     const feedback = await db.collection("feedback").add({
       interviewId,
       userId,
@@ -98,32 +119,27 @@ export async function createFeedback(params: CreateFeedbackParams) {
     return {
       success: true,
       feedbackId: feedback.id,
+      message: "New feedback created",
     };
   } catch (e) {
     console.error("Error saving feedback", e);
 
-    return { success: false };
+    return { success: false, message: "Something went wrong." };
   }
 }
 
-export async function getFeedbackByInterviewId(
-  params: GetFeedbackByInterviewIdParams
-): Promise<Feedback | null> {
-  const { interviewId, userId } = params;
+export async function getFeedbackByInterviewId(params: GetFeedbackByInterviewIdParams): Promise<Feedback | null> {
+    const { interviewId, userId } = params;
 
-  const feedback = await db
-    .collection("feedback")
-    .where("interviewId", "==", interviewId)
-    .where("userId", "==", userId)
-    .limit(1)
-    .get();
+    const feedback = await db
+        .collection('feedback')
+        .where('interviewId', '==', interviewId)
+        .where('userId', '==', userId)
+        .limit(1)
+        .get();
 
-  if (feedback.empty) return null;
+    if(feedback.empty) return null;
+    const feedbackDoc = feedback.docs[0];
 
-  const feedbackDoc = feedback.docs[0];
-  return {
-    id: feedbackDoc.id,
-    ...feedbackDoc.data(),
-  } as Feedback;
-
+    return { id: feedbackDoc.id, ...feedbackDoc.data()} as Feedback;
 }

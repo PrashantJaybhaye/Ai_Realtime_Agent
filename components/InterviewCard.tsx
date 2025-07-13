@@ -6,10 +6,13 @@ import { Button } from "./ui/button"
 import DisplayTechIcons from "./DisplayTechIcons"
 import { Calendar, Star, Play, Clock, Target, Zap } from "lucide-react"
 import { getFeedbackByInterviewId } from "@/lib/actions/general.action"
+import { getCurrentUser } from "@/lib/actions/auth.action"
 
 const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: InterviewCardProps) => {
+  const user = await getCurrentUser();
+
   const feedback = userId && id
-    ? await getFeedbackByInterviewId({ interviewId: id, userId })
+    ? await getFeedbackByInterviewId({ interviewId: id, userId: user?.id || 'Guest' })
     : null;
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
   const formattedDate = dayjs(feedback?.createdAt || createdAt || Date.now()).format("MMM D, YYYY");
