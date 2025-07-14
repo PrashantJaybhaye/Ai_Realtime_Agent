@@ -192,6 +192,10 @@ export default function Header({ user }: HeaderProps) {
                                     <div className="flex flex-col">
                                         <span className="text-sm font-medium text-foreground">{user?.name || 'User'}</span>
                                         <span className="text-xs text-muted-foreground">{user?.email || ''}</span>
+                                        {user?.isAdmin &&
+                                            <span className="text-xs text-muted-foreground mt-1">
+                                                Admin
+                                            </span>}
                                     </div>
                                 </div>
 
