@@ -23,77 +23,59 @@ const Page = async () => {
     return (
         <div className="space-y-16">
             {/* Enhanced Hero Section */}
-            <section className="relative overflow-hidden">
-                {/* Background Effects */}
-                <div className="absolute inset-0 pointer-events-none">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-background rounded-3xl" />
-                    <div className="absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-3xl opacity-60" />
-                    <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-gradient-to-br from-accent/10 to-primary/10 rounded-full blur-2xl opacity-50" />
+            <section className="relative overflow-hidden rounded-2xl border border-border/40 shadow-sm px-6 sm:px-12 py-10 lg:py-10">
+                {/* Glow Effects */}
+                <div className="absolute inset-0 -z-10">
+                    <div className="absolute top-[-100px] left-[-80px] w-80 h-80 bg-primary/20 blur-3xl rounded-full opacity-40"></div>
+                    <div className="absolute bottom-[-80px] right-[-60px] w-64 h-64 bg-accent/20 blur-2xl rounded-full opacity-30"></div>
                 </div>
 
-                <div className="relative card-cta flex max-sm:flex-col-reverse bg-gradient-to-br from-background/80 to-muted/20 backdrop-blur-sm border-2 border-border/50">
-                    {/* Content Area */}
-                    <div className="relative z-10 flex flex-col justify-center max-w-2xl gap-8 text-pretty">
-                        {/* Badge */}
-                        <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-950/80 to-orange-950/80 text-yellow-400 font-medium text-sm rounded-full px-4 py-2 w-fit border border-yellow-500/20">
-                            <Sparkles className="w-4 h-4" />
-                            AI-Powered Interview Practice
+                <div className="flex flex-col-reverse lg:flex-row justify-between items-center gap-1">
+                    {/* Left Content */}
+                    <div className="max-w-2xl text-center lg:text-left space-y-6">
+                        <div className="inline-flex items-center gap-2 bg-muted px-4 py-1.5 text-sm font-medium text-muted-foreground rounded-full border border-border/50 w-fit mx-auto lg:mx-0">
+                            <Sparkles className="w-4 h-4 text-primary" />
+                            Powered by AI + Real-Time Feedback
                         </div>
 
-                        {/* Personalized Greeting */}
-                        <div className="space-y-2">
-                            <div className="text-2xl sm:text-3xl font-bold text-foreground">
-                                Welcome back, {user.name}! 👋
-                            </div>
-                            <p className="text-muted-foreground text-sm">{user.email}</p>
-                        </div>
+                        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                                Interview Smarter,
+                            </span>{" "}
+                            <br className="hidden sm:block" />
+                            <span className="text-foreground">Perform Better</span>
+                        </h1>
 
-                        {/* Main Headline */}
-                        <div className="space-y-4">
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
-                                <span className="bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
-                                    Master Your Next
-                                </span>
-                                <br />
-                                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                                    Interview
-                                </span>
-                            </h1>
+                        <p className="text-muted-foreground text-lg max-w-xl">
+                            Sidvia helps you master interviews through personalized AI practice, real-time evaluation, and performance analytics.
+                        </p>
 
-                            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
-                                Practice with our intelligent AI interviewer, get real-time feedback, and boost your confidence for any technical or behavioral interview.
-                            </p>
-                        </div>
-
-                        {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <Button asChild className="btn-primary h-12 px-8 text-base font-semibold group">
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
                                 <Link href="/interview" className="flex items-center gap-2">
                                     <Play className="h-5 w-5" />
-                                    Start Interview Practice
+                                    Start Practicing
                                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" className="h-12 px-8 text-base font-semibold border-border/50 hover:border-primary/50">
+
+                            <Button variant="outline" className="h-12 px-8 text-base font-semibold border-border/60">
                                 View Past Results
                             </Button>
                         </div>
                     </div>
 
-                    {/* Enhanced Image Area */}
-                    <div className="relative flex justify-center items-center max-sm:mb-8 max-md:hidden">
-                        <div className="relative">
-                            {/* Glow effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-2xl scale-110" />
-                            <Image
-                                src="/robot.png"
-                                alt="AI Interview Assistant"
-                                width={420}
-                                height={420}
-                                className="relative drop-shadow-2xl max-md:size-64 transition-transform hover:scale-105 duration-300"
-                                priority
-                            />
-                        </div>
+                    {/* Right Image */}
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 blur-2xl rounded-full scale-110 -z-10 opacity-30"></div>
+                        <Image
+                            src="/robot.png"
+                            alt="AI Interview Assistant"
+                            width={420}
+                            height={420}
+                            className="drop-shadow-xl rounded-xl max-md:size-64 transition-transform max-sm:hidden"
+                            priority
+                        />
                     </div>
                 </div>
             </section>
@@ -104,7 +86,7 @@ const Page = async () => {
                     <div className="stats-icon bg-blue-500/10 text-blue-500 group-hover:bg-blue-500/20 transition-colors">
                         <Users className="h-6 w-6" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-2">10,000+</div>
+                    <div className="text-3xl font-bold text-foreground mb-2">1000+</div>
                     <div className="text-sm text-muted-foreground">Interviews Completed</div>
                     <div className="text-xs text-green-500 mt-1">↗ +15% this month</div>
                 </div>
@@ -213,7 +195,7 @@ const Page = async () => {
                         Join thousands of successful candidates who&apos;ve improved their interview skills with Sidvia
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button asChild className="btn-primary h-12 px-8 text-base font-semibold">
+                        <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
                             <Link href="/interview">
                                 <Play className="h-5 w-5 mr-2" />
                                 Start Practicing Now
