@@ -73,7 +73,7 @@ const Page = async () => {
                             alt="AI Interview Assistant"
                             width={420}
                             height={420}
-                            className="drop-shadow-xl rounded-xl max-md:size-64 transition-transform max-sm:hidden"
+                            className="drop-shadow-xl rounded-xl max-md:size-64 transition-transform max-md:hidden"
                             priority
                         />
                     </div>
