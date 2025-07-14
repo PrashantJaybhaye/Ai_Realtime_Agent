@@ -8,11 +8,14 @@ import { logout } from '@/lib/actions/auth.action'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { toast } from 'sonner'
-import { LogOut, User } from 'lucide-react'
+import { LogOut, User, Settings } from 'lucide-react'
+
+interface HeaderProps {
+    user: User | null
+}
 
 
-
-export default function Header() {
+export default function Header({ user }: HeaderProps) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const [isNavigating, setIsNavigating] = useState(false)
     const router = useRouter()
@@ -84,16 +87,34 @@ export default function Header() {
                 </div>
 
                 {/* User Button */}
-                <div className="hidden md:flex items-center gap-3 mt-3">
+                <div className="hidden md:flex items-center gap-3 relative group">
+                    {/* User Profile */}
+                    <div className="flex items-center gap-3">
+                        <div className="relative">
+                            {/* Avatar Circle */}
+                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary font-semibold text-sm cursor-pointer">
+                                {user?.name?.charAt(0).toUpperCase() || 'U'}
+                            </div>
+
+                            {/* Tooltip Name on Hover */}
+                            {user?.name && (
+                                <div className="absolute left-1/2 -translate-x-1/2 mt-2 px-2 py-1 text-xs bg-muted text-foreground rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 whitespace-nowrap">
+                                    {user.name}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Logout Button */}
                     <Button
                         variant="outline"
                         onClick={() => {
                             handleLogout()
                             setMobileMenuOpen(false)
                         }}
-                        className="w-full justify-start text-red-400 border-red-400/20 hover:bg-red-400/10 text-sm"
+                        className="justify-start text-red-400 border-red-400/20 hover:bg-red-400/10 text-sm h-9"
                     >
-                        <LogOut className="h-5 w-5" />
+                        <LogOut className="h-4 w-4" />
                         Sign out
                     </Button>
                 </div>
@@ -163,9 +184,20 @@ export default function Header() {
                             </div>
 
                             <div className="border-t border-border space-y-2 py-6">
+                                {/* Mobile User Profile */}
+                                <div className="flex items-center gap-3 px-3 py-3 rounded-lg bg-card/30 border border-border/30 mb-4">
+                                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/20 text-primary font-semibold">
+                                        {user?.name?.charAt(0).toUpperCase() || 'U'}
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-sm font-medium text-foreground">{user?.name || 'User'}</span>
+                                        <span className="text-xs text-muted-foreground">{user?.email || ''}</span>
+                                    </div>
+                                </div>
+
                                 <Button variant="ghost" className="w-full justify-start btn-ghost text-sm">
-                                    <User className="h-5 w-5" />
-                                    Profile
+                                    <Settings className="h-5 w-5" />
+                                    Settings
                                 </Button>
                                 <Button
                                     variant="outline"

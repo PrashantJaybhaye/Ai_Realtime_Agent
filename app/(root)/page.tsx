@@ -81,7 +81,7 @@ const Page = async () => {
                     </div>
 
                     {/* Enhanced Image Area */}
-                    <div className="relative flex justify-center items-center max-sm:mb-8">
+                    <div className="relative flex justify-center items-center max-sm:mb-8 max-md:hidden">
                         <div className="relative">
                             {/* Glow effect */}
                             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-2xl scale-110" />
