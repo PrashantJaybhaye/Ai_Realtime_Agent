@@ -105,7 +105,7 @@ const AboutPage = async () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild className="btn-primary h-12 px-8 text-base font-semibold">
+          <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
             <Link href="/interview">
               Try Sidvia Now
               <ArrowRight className="w-5 h-5 ml-2" />
@@ -312,7 +312,7 @@ const AboutPage = async () => {
           Join thousands of professionals who&apos;ve already improved their interview performance with Sidvia&apos;s AI-powered coaching.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild className="btn-primary h-12 px-8 text-base font-semibold">
+          <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
             <Link href="/interview">
               Start Your Journey
               <ArrowRight className="w-5 h-5 ml-2" />
