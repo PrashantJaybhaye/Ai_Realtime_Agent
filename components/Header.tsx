@@ -20,7 +20,11 @@ export default function Header({ user }: HeaderProps) {
     const [isNavigating, setIsNavigating] = useState(false)
     const router = useRouter()
     const pathname = usePathname()
-    const NavLinks = ['Interview', 'Pricing', 'About']
+    const NavLinks = [
+        { label: 'Home', path: '/' },
+        { label: 'Interview', path: '/interview' },
+        { label: 'About', path: '/about' },
+    ]
 
     useEffect(() => {
         // Reset navigation state when path changes
@@ -69,18 +73,18 @@ export default function Header({ user }: HeaderProps) {
 
                 {/* Navigation Links */}
                 <div className="hidden md:flex items-center gap-6 mt-2">
-                    {NavLinks.map((item) => {
-                        const href = `/${item.toLowerCase()}`
+                    {NavLinks.map((item, index) => {
+                        // const href = `/${item.toLowerCase()}`
                         return (
                             <div
-                                key={item}
-                                onClick={() => handleNavigation(href)}
-                                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer ${pathname === href
+                                key={index}
+                                onClick={() => handleNavigation(item.path!)}
+                                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer ${pathname === item.path
                                     ? " text-accent-foreground underline underline-offset-8"
                                     : "text-gray-400 hover:text-foreground hover:bg-accent/50"
                                     }`}
                             >
-                                {item}
+                                {item.label}
                             </div>
                         )
                     })}
@@ -162,21 +166,21 @@ export default function Header({ user }: HeaderProps) {
                     <div className="mt-6 flow-root">
                         <div className="-my-6 divide-y divide-white/10">
                             <div className="space-y-2 py-6">
-                                {NavLinks.map((item) => {
-                                    const href = `/${item.toLowerCase()}`
+                                {NavLinks.map((item, index) => {
+                                    // const href = `/${item.toLowerCase()}`
                                     return (
                                         <div
-                                            key={item}
+                                            key={index}
                                             onClick={() => {
-                                                handleNavigation(href)
+                                                handleNavigation(item.path!)
                                                 setMobileMenuOpen(false)
                                             }}
-                                            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${pathname === href
+                                            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${pathname === item.path
                                                 ? "bg-accent text-accent-foreground"
                                                 : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                                                 }`}
                                         >
-                                            {item}
+                                            {item.label}
                                         </div>
                                     )
                                 })}
