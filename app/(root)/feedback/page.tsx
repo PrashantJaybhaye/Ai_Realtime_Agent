@@ -24,7 +24,33 @@ const FeedbackPage = async () => {
   if (!user) return <UserError />
 
   const userInterviews = await getInterviewByUserId(user.id)
-  const completedInterviews = userInterviews?.filter(interview => interview.finalized) || []
+  
+  if (!userInterviews || userInterviews.length === 0) {
+    return (
+      <div className="space-y-8">
+        <section className="text-center py-16 space-y-6">
+          <div className="w-20 h-20 mx-auto bg-muted/50 rounded-full flex items-center justify-center">
+            <Clock className="w-10 h-10 text-muted-foreground" />
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-2xl font-semibold text-foreground">No interviews completed yet</h3>
+            <p className="text-muted-foreground max-w-md mx-auto">
+              Complete your first interview to start tracking your progress and receiving detailed AI feedback.
+            </p>
+            <Button asChild className="btn-primary">
+              <Link href="/interview" className="flex items-center gap-2">
+                <Star className="h-4 w-4" />
+                Start Your First Interview
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </section>
+      </div>
+    )
+  }
+
+  const completedInterviews = userInterviews.filter(interview => interview.finalized)
 
   // Get feedback for each interview and calculate stats
   const interviewsWithFeedback = await Promise.all(
@@ -40,17 +66,35 @@ const FeedbackPage = async () => {
     })
   )
 
+  // Debug logging (remove in production)
+  console.log('Completed interviews:', completedInterviews.length)
+  console.log('Interviews with feedback:', interviewsWithFeedback.map(i => ({
+    id: i.id,
+    hasFeedback: !!i.feedback,
+    score: i.feedback?.totalScore
+  })))
+
   // Calculate stats from feedback data
   const totalInterviews = completedInterviews.length
-  const feedbackScores = interviewsWithFeedback
-    .map(interview => interview.feedback?.totalScore)
-    .filter(score => score !== undefined && score !== null) as number[]
+  
+  // Only get scores from interviews that actually have feedback
+  const interviewsWithValidFeedback = interviewsWithFeedback.filter(interview => 
+    interview.feedback && 
+    interview.feedback.totalScore !== undefined && 
+    interview.feedback.totalScore !== null
+  )
+  
+  const feedbackScores = interviewsWithValidFeedback.map(interview => interview.feedback!.totalScore)
+  
+  console.log('Valid feedback scores:', feedbackScores)
   
   const averageScore = feedbackScores.length > 0 
     ? Math.round(feedbackScores.reduce((sum, score) => sum + score, 0) / feedbackScores.length)
     : 0
 
   const highScoreCount = feedbackScores.filter(score => score >= 80).length
+  
+  console.log('High score count:', highScoreCount, 'from scores:', feedbackScores.filter(score => score >= 80))
 
   return (
     <div className="space-y-8">
@@ -91,9 +135,14 @@ const FeedbackPage = async () => {
           <div className="stats-icon bg-green-500/10 text-green-500 group-hover:bg-green-500/20 transition-colors">
             <TrendingUp className="h-6 w-6" />
           </div>
-          <div className="text-3xl font-bold text-foreground mb-2">{averageScore}</div>
+          <div className="text-3xl font-bold text-foreground mb-2">
+            {averageScore}
+            {feedbackScores.length > 0 && <span className="text-sm text-muted-foreground ml-1">%</span>}
+          </div>
           <div className="text-sm text-muted-foreground">Average Score</div>
-          <div className="text-xs text-green-500 mt-1">Out of 100</div>
+          <div className="text-xs text-green-500 mt-1">
+            {feedbackScores.length > 0 ? 'Out of 100' : 'No scores yet'}
+          </div>
         </div>
 
         <div className="stats-card group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -102,7 +151,9 @@ const FeedbackPage = async () => {
           </div>
           <div className="text-3xl font-bold text-foreground mb-2">{highScoreCount}</div>
           <div className="text-sm text-muted-foreground">High Scores</div>
-          <div className="text-xs text-purple-500 mt-1">80+ points</div>
+          <div className="text-xs text-purple-500 mt-1">
+            80+ points ({feedbackScores.length} total)
+          </div>
         </div>
       </section>
 
@@ -111,7 +162,8 @@ const FeedbackPage = async () => {
         <div className="flex items-center gap-4">
           <h2 className="text-2xl font-bold text-foreground">Interview History</h2>
           <div className="text-sm text-muted-foreground">
-            {totalInterviews} interview{totalInterviews !== 1 ? 's' : ''} completed
+            {totalInterviews} interview{totalInterviews !== 1 ? 's' : ''} completed, 
+            {feedbackScores.length} with feedback
           </div>
         </div>
         
