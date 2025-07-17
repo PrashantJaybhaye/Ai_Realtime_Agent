@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getCurrentUser } from '@/lib/actions/auth.action'
-import { getInterviewByUserId } from '@/lib/actions/general.action'
+import { getInterviewByUserId, getFeedbackByInterviewId } from '@/lib/actions/general.action'
 import UserError from '@/components/UserError'
 import InterviewCard from '@/components/InterviewCard'
 import { 
@@ -26,11 +26,31 @@ const FeedbackPage = async () => {
   const userInterviews = await getInterviewByUserId(user.id)
   const completedInterviews = userInterviews?.filter(interview => interview.finalized) || []
 
-  // Calculate stats
+  // Get feedback for each interview and calculate stats
+  const interviewsWithFeedback = await Promise.all(
+    completedInterviews.map(async (interview) => {
+      const feedback = await getFeedbackByInterviewId({
+        interviewId: interview.id,
+        userId: user.id
+      })
+      return {
+        ...interview,
+        feedback
+      }
+    })
+  )
+
+  // Calculate stats from feedback data
   const totalInterviews = completedInterviews.length
-  const averageScore = completedInterviews.length > 0 
-    ? Math.round(completedInterviews.reduce((sum, interview) => sum + (interview.totalScore || 0), 0) / completedInterviews.length)
+  const feedbackScores = interviewsWithFeedback
+    .map(interview => interview.feedback?.totalScore)
+    .filter(score => score !== undefined && score !== null) as number[]
+  
+  const averageScore = feedbackScores.length > 0 
+    ? Math.round(feedbackScores.reduce((sum, score) => sum + score, 0) / feedbackScores.length)
     : 0
+
+  const highScoreCount = feedbackScores.filter(score => score >= 80).length
 
   return (
     <div className="space-y-8">
@@ -80,9 +100,7 @@ const FeedbackPage = async () => {
           <div className="stats-icon bg-purple-500/10 text-purple-500 group-hover:bg-purple-500/20 transition-colors">
             <Award className="h-6 w-6" />
           </div>
-          <div className="text-3xl font-bold text-foreground mb-2">
-            {completedInterviews.filter(i => (i.totalScore || 0) >= 80).length}
-          </div>
+          <div className="text-3xl font-bold text-foreground mb-2">{highScoreCount}</div>
           <div className="text-sm text-muted-foreground">High Scores</div>
           <div className="text-xs text-purple-500 mt-1">80+ points</div>
         </div>
