@@ -22,8 +22,9 @@ export default function Header({ user }: HeaderProps) {
     const pathname = usePathname()
     const NavLinks = [
         { label: 'Home', path: '/' },
-        { label: 'Interview', path: '/interview' },
+        { label: 'Feedback', path: '/feedback' },
         { label: 'About', path: '/about' },
+        { label: 'Contact', path: '/contact' },
     ]
 
     useEffect(() => {
