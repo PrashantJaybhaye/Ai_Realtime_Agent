@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { isAuthenticated } from "@/lib/actions/auth.action";
+import { redirect } from "next/navigation";
 
 const monaSans = Mona_Sans({
     variable: "--font-mona-sans",
