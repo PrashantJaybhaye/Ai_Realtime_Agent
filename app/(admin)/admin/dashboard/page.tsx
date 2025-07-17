@@ -291,26 +291,26 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="p-6 space-y-6">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="p-8 space-y-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[...Array(4)].map((_, i) => (
             <Skeleton key={i} className="h-32" />
           ))}
         </div>
-        <Skeleton className="h-96" />
+        <Skeleton className="h-[28rem]" />
       </div>
     );
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-8 space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-2">
+        <div className="space-y-1">
           <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
           <p className="text-muted-foreground">Manage users and monitor system activity</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Button 
             variant="outline" 
             onClick={fetchUsers}
@@ -332,7 +332,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -392,8 +392,8 @@ export default function AdminDashboard() {
 
       {/* Filters and Search */}
       <Card>
-        <CardContent className="p-6">
-          <div className="flex flex-col sm:flex-row gap-4">
+        <CardContent className="p-8">
+          <div className="flex flex-col sm:flex-row gap-6">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
@@ -403,7 +403,7 @@ export default function AdminDashboard() {
                 className="pl-10"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <Button
                 variant={statusFilter === 'all' ? 'default' : 'outline'}
                 onClick={() => setStatusFilter('all')}
@@ -429,7 +429,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Sort Controls */}
-          <div className="flex md:items-center gap-2 my-6 max-sm:flex-col">
+          <div className="flex md:items-center gap-3 my-8 max-sm:flex-col">
             <span className="text-sm text-muted-foreground">Sort by signup:</span>
             <Button
               variant={sortOrder === 'newest' ? 'default' : 'outline'}
@@ -449,12 +449,12 @@ export default function AdminDashboard() {
 
           {/* Bulk Actions */}
           {selectedUsers.size > 0 && (
-            <div className="mt-4 p-4 bg-primary/5 border border-primary/20 rounded-lg">
-              <div className="flex items-center justify-between">
+            <div className="mt-6 p-5 bg-primary/5 border border-primary/20 rounded-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <span className="text-sm font-medium">
                   {selectedUsers.size} user(s) selected
                 </span>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                   <Button
                     size="sm"
                     variant="outline"
@@ -494,13 +494,13 @@ export default function AdminDashboard() {
 
       {/* Users Table */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+        <CardHeader className="pb-0">
+          <CardTitle className="flex items-center gap-3">
             <Shield className="w-5 h-5" />
             User Management
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-4">
           <div className="rounded-md border">
             <Table>
               <TableHeader>
@@ -626,7 +626,7 @@ export default function AdminDashboard() {
           </div>
 
           {filteredUsers.length === 0 && (
-            <div className="text-center py-12">
+            <div className="text-center py-16">
               <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-medium text-foreground mb-2">No users found</h3>
               <p className="text-muted-foreground">

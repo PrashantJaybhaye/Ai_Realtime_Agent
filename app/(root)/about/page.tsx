@@ -81,15 +81,14 @@ const AboutPage = async () => {
   ]
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-20 md:space-y-28 lg:space-y-36">
       {/* Hero Section */}
-      <section className="text-center space-y-8">
+      <section className="text-center space-y-10 md:space-y-14 pt-10 md:pt-20">
         <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full text-primary text-sm font-medium">
+          <div className="inline-flex items-center gap-2 bg-primary/10 px-6 py-2 rounded-full text-primary text-sm font-medium shadow-sm">
             <Star className="w-4 h-4" />
             About Sidvia
           </div>
-          
           <h1 className="text-4xl md:text-6xl font-bold text-foreground">
             Revolutionizing Interview
             <br />
@@ -97,14 +96,12 @@ const AboutPage = async () => {
               Preparation with AI
             </span>
           </h1>
-          
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-2">
             We&apos;re on a mission to democratize interview success by providing personalized, 
             AI-powered coaching that adapts to your unique strengths and areas for improvement.
           </p>
         </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
           <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
             <Link href="/interview">
               Try Sidvia Now
@@ -144,7 +141,7 @@ const AboutPage = async () => {
               in interviews. Traditional interview preparation is often expensive, time-consuming, and 
               one-size-fits-all.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed mb-2">
               That&apos;s why we created an AI-powered platform that provides personalized, real-time feedback 
               and coaching, making high-quality interview preparation accessible to everyone, everywhere.
             </p>
@@ -165,8 +162,7 @@ const AboutPage = async () => {
             </div>
           </div>
         </div>
-
-        <div className="relative">
+        <div className="relative mt-10 md:mt-0">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl rounded-full" />
           <Image
             src="/robot.png"
@@ -179,9 +175,9 @@ const AboutPage = async () => {
       </section>
 
       {/* Values Section */}
-      <section className="space-y-12">
-        <div className="text-center space-y-4">
-          <h2 className="text-3xl font-bold text-foreground">Our Values</h2>
+      <section className="space-y-14">
+        <div className="text-center space-y-6">
+          <h2 className="text-3xl font-bold text-foreground mb-2">Our Values</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             These core principles guide everything we do and shape how we build products for our users.
           </p>
@@ -194,7 +190,7 @@ const AboutPage = async () => {
                 <div className="w-16 h-16 mx-auto bg-muted/50 rounded-full flex items-center justify-center">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-foreground">{value.title}</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-1">{value.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
               </CardContent>
             </Card>
@@ -225,7 +221,7 @@ const AboutPage = async () => {
                   />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-1">{member.name}</h3>
                   <p className="text-primary text-sm font-medium">{member.role}</p>
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
@@ -251,41 +247,39 @@ const AboutPage = async () => {
                 and personalized.
               </p>
             </div>
-
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2" />
                 <div>
-                  <h4 className="font-semibold text-foreground">Natural Language Processing</h4>
+                  <h4 className="font-semibold text-foreground mb-1">Natural Language Processing</h4>
                   <p className="text-muted-foreground text-sm">Advanced NLP analyzes your responses for clarity, structure, and content quality.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2" />
                 <div>
-                  <h4 className="font-semibold text-foreground">Real-time Feedback</h4>
+                  <h4 className="font-semibold text-foreground mb-1">Real-time Feedback</h4>
                   <p className="text-muted-foreground text-sm">Get instant insights and suggestions during your practice sessions.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2" />
                 <div>
-                  <h4 className="font-semibold text-foreground">Adaptive Learning</h4>
+                  <h4 className="font-semibold text-foreground mb-1">Adaptive Learning</h4>
                   <p className="text-muted-foreground text-sm">Our AI learns from your progress and adapts to your unique learning style.</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="relative">
+          <div className="relative mt-10 md:mt-0">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 blur-2xl rounded-full" />
-            <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/50">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
+            <div className="relative bg-card/50 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-border/50">
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-2">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
                   <span className="text-sm text-muted-foreground">AI Analysis Active</span>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className="h-2 bg-primary/20 rounded-full">
                     <div className="h-2 bg-primary rounded-full w-4/5 animate-pulse" />
                   </div>
@@ -296,7 +290,7 @@ const AboutPage = async () => {
                     <div className="h-2 bg-primary rounded-full w-5/6 animate-pulse" />
                   </div>
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-xs text-muted-foreground mt-2">
                   Processing speech patterns, analyzing content structure, generating personalized feedback...
                 </div>
               </div>
@@ -306,12 +300,12 @@ const AboutPage = async () => {
       </section>
 
       {/* CTA Section */}
-      <section className="text-center space-y-6">
-        <h2 className="text-3xl font-bold text-foreground">Ready to Transform Your Interview Skills?</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+      <section className="text-center space-y-8 mt-10">
+        <h2 className="text-3xl font-bold text-foreground mb-2">Ready to Transform Your Interview Skills?</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
           Join thousands of professionals who&apos;ve already improved their interview performance with Sidvia&apos;s AI-powered coaching.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
           <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
             <Link href="/interview">
               Start Your Journey

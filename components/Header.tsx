@@ -9,6 +9,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { toast } from 'sonner'
 import { LogOut, User, Settings } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface HeaderProps {
     user: User | null
@@ -22,8 +23,9 @@ export default function Header({ user }: HeaderProps) {
     const pathname = usePathname()
     const NavLinks = [
         { label: 'Home', path: '/' },
-        { label: 'Interview', path: '/interview' },
+        { label: 'Feedback', path: '/feedback' },
         { label: 'About', path: '/about' },
+        { label: 'Contact', path: '/contact' },
     ]
 
     useEffect(() => {
@@ -75,14 +77,18 @@ export default function Header({ user }: HeaderProps) {
                 <div className="hidden md:flex items-center gap-6 mt-2">
                     {NavLinks.map((item, index) => {
                         // const href = `/${item.toLowerCase()}`
+                        const isActive = pathname === item.path
+
                         return (
                             <div
                                 key={index}
                                 onClick={() => handleNavigation(item.path!)}
-                                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer ${pathname === item.path
-                                    ? " text-accent-foreground underline underline-offset-8"
-                                    : "text-gray-400 hover:text-foreground hover:bg-accent/50"
-                                    }`}
+                                className={cn(
+                                    'px-4 py-2 text-sm font-medium transition-colors border-b-2 cursor-pointer',
+                                    isActive
+                                        ? 'text-primary border-primary'
+                                        : 'text-muted-foreground border-transparent hover:text-primary'
+                                )}
                             >
                                 {item.label}
                             </div>
@@ -175,7 +181,7 @@ export default function Header({ user }: HeaderProps) {
                                                 handleNavigation(item.path!)
                                                 setMobileMenuOpen(false)
                                             }}
-                                            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${pathname === item.path
+                                            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer ${pathname === item.path
                                                 ? "bg-accent text-accent-foreground"
                                                 : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                                                 }`}
