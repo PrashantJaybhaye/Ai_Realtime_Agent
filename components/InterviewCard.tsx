@@ -1,12 +1,11 @@
 import dayjs from "dayjs"
 import Image from "next/image"
-import Link from "next/link"
 import { getRandomInterviewCover } from "@/lib/utils"
-import { Button } from "./ui/button"
 import DisplayTechIcons from "./DisplayTechIcons"
-import { Calendar, Star, Play, Clock, Target, Zap } from "lucide-react"
+import { Calendar, Star, Target, Zap } from "lucide-react"
 import { getFeedbackByInterviewId } from "@/lib/actions/general.action"
 import { getCurrentUser } from "@/lib/actions/auth.action"
+import ClientActionButton from "./ClientActionButton"
 
 const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: InterviewCardProps) => {
   const user = await getCurrentUser();
@@ -100,24 +99,7 @@ const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: I
           </div>
 
           {/* Action Button */}
-          <div className="pt-2 border-t border-border">
-            <Button className="w-full btn-primary text-sm font-semibold group/button">
-              <Link
-                href={
-                  feedback
-                    ? `/interview/${id}/feedback`
-                    : `/interview/${id}`
-                }
-                className="flex items-center justify-center gap-2 w-full"
-              >
-                <Play className="h-4 w-4" />
-                {feedback ? "View Detailed Feedback" : "Begin Interview"}
-                <div className="ml-auto opacity-0 group-hover/button:opacity-100 transition-opacity">
-                  <Clock className="h-4 w-4" />
-                </div>
-              </Link>
-            </Button>
-          </div>
+          <ClientActionButton id={id!} feedbackExists={!!feedback} />
         </div>
       </div>
 

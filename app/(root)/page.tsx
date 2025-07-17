@@ -7,6 +7,7 @@ import { Play, Sparkles, TrendingUp, Users, Zap, ArrowRight, Clock, Target, Chec
 import { getCurrentUser } from '@/lib/actions/auth.action'
 import { getInterviewByUserId, getLatestInterviews } from '@/lib/actions/general.action'
 import UserError from '@/components/UserError'
+import { ActionButtonProvider } from '@/contexts/ActionButtonContext'
 
 const Page = async () => {
     const user = await getCurrentUser();
@@ -110,81 +111,85 @@ const Page = async () => {
                 </div>
             </section>
 
-            {/* Past Interviews Section */}
-            <section className="space-y-6">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h2 className="text-3xl lg:text-4xl font-bold mb-2">Your Interview History</h2>
-                        <p className="text-muted-foreground">Track your progress and review past performances</p>
-                    </div>
-                    {hasPastInterviews && (
-                        <Button variant="outline" className="hidden sm:flex">
-                            View All
-                        </Button>
-                    )}
-                </div>
-
-                <div className="interviews-section">
-                    {hasPastInterviews ? (
-                        userInterviews?.slice(0, 3).map((interview) => (
-                            <InterviewCard {...interview} key={interview.id} />
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center py-12 space-y-4">
-                            <div className="w-16 h-16 mx-auto bg-muted/50 rounded-full flex items-center justify-center">
-                                <Clock className="w-8 h-8 text-muted-foreground" />
-                            </div>
-                            <div>
-                                <h3 className="text-lg font-semibold text-foreground mb-2">No interviews yet</h3>
-                                <p className="text-muted-foreground mb-4">Start your first interview to begin tracking your progress</p>
-                                <Button asChild className="btn-primary">
-                                    <Link href="/interview">
-                                        <Play className="h-4 w-4 mr-2" />
-                                        Start Your First Interview
-                                    </Link>
-                                </Button>
-                            </div>
+            <ActionButtonProvider>
+                {/* Past Interviews Section */}
+                <section className="space-y-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-2">Your Interview History</h2>
+                            <p className="text-muted-foreground">Track your progress and review past performances</p>
                         </div>
-                    )}
-                </div>
-            </section>
-
-            {/* Explore Modules Section */}
-            <section className="space-y-6">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h2 className="text-3xl lg:text-4xl font-bold mb-2">Explore Interview Modules</h2>
-                        <p className="text-muted-foreground">Discover new interview challenges and expand your skills</p>
+                        {hasPastInterviews && (
+                            <Button variant="outline" className="hidden sm:flex">
+                                View All
+                            </Button>
+                        )}
                     </div>
-                    {hasUpcomingInterviews && (
-                        <Button variant="outline" className="hidden sm:flex">
-                            Browse All
-                        </Button>
-                    )}
-                </div>
 
-                <div className="interviews-section">
-                    {hasUpcomingInterviews ? (
-                        latestInterviews?.slice(0, 3).map((interview) => (
-                            <InterviewCard {...interview} key={interview.id} />
-                        ))
-                    ) : (
-                        <div className="col-span-full text-center py-12 space-y-4">
-                            <div className="w-16 h-16 mx-auto bg-muted/50 rounded-full flex items-center justify-center">
-                                <Target className="w-8 h-8 text-muted-foreground" />
+                    <div className="interviews-section">
+                        {hasPastInterviews ? (
+                            userInterviews?.slice(0, 3).map((interview) => (
+                                <InterviewCard {...interview} key={interview.id} />
+                            ))
+                        ) : (
+                            <div className="col-span-full text-center py-12 space-y-4">
+                                <div className="w-16 h-16 mx-auto bg-muted/50 rounded-full flex items-center justify-center">
+                                    <Clock className="w-8 h-8 text-muted-foreground" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">No interviews yet</h3>
+                                    <p className="text-muted-foreground mb-4">Start your first interview to begin tracking your progress</p>
+                                    <Button asChild className="btn-primary">
+                                        <Link href="/interview">
+                                            <Play className="h-4 w-4 mr-2" />
+                                            Start Your First Interview
+                                        </Link>
+                                    </Button>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-lg font-semibold text-foreground mb-2">No modules available</h3>
-                                <p className="text-muted-foreground mb-4">Check back later for new interview modules</p>
-                                <Button variant="outline">
-                                    <CheckCircle className="h-4 w-4 mr-2" />
-                                    Create Custom Interview
-                                </Button>
-                            </div>
+                        )}
+                    </div>
+                </section>
+
+                {/* Explore Modules Section */}
+                <section className="space-y-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h2 className="text-3xl lg:text-4xl font-bold mb-2">Explore Interview Modules</h2>
+                            <p className="text-muted-foreground">Discover new interview challenges and expand your skills</p>
                         </div>
-                    )}
-                </div>
-            </section>
+                        {hasUpcomingInterviews && (
+                            <Button variant="outline" className="hidden sm:flex">
+                                Browse All
+                            </Button>
+                        )}
+                    </div>
+
+                    <div className="interviews-section">
+                        {hasUpcomingInterviews ? (
+                            latestInterviews?.slice(0, 3).map((interview) => (
+                                <InterviewCard {...interview} key={interview.id} />
+                            ))
+                        ) : (
+                            <div className="col-span-full text-center py-12 space-y-4">
+                                <div className="w-16 h-16 mx-auto bg-muted/50 rounded-full flex items-center justify-center">
+                                    <Target className="w-8 h-8 text-muted-foreground" />
+                                </div>
+                                <div>
+                                    <h3 className="text-lg font-semibold text-foreground mb-2">No modules available</h3>
+                                    <p className="text-muted-foreground mb-4">Check back later for new interview modules</p>
+                                    <Button variant="outline">
+                                        <CheckCircle className="h-4 w-4 mr-2" />
+                                        Create Custom Interview
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            </ActionButtonProvider>
+
+            {/* Enhanced Call to Action Section */}
 
             {/* CTA Section */}
             <section className="relative overflow-hidden">
