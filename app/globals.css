@@ -334,6 +334,11 @@
   @apply flex items-center justify-center;
 }
 
+@utility bg-dot-white {
+  background-image: radial-gradient(circle, white 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
 @utility animate-fadeIn {
   animation: fadeIn 0.3s ease-in-out;
 }
