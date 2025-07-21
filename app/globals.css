@@ -336,7 +336,11 @@
 
 @utility bg-dot-white {
   background-image: radial-gradient(circle, white 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-size: 30px 30px;
+}
+
+@utility max-w-8xl {
+  max-width: 90rem;
 }
 
 @utility animate-fadeIn {
