@@ -2,12 +2,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
-import { 
-  Play, 
-  Sparkles, 
-  TrendingUp, 
-  Users, 
-  ArrowRight, 
+import {
+  Play,
+  TrendingUp,
+  Users,
   Star,
   Target,
   Shield,
@@ -17,6 +15,8 @@ import {
   Headphones,
   Globe
 } from 'lucide-react'
+import Navbar from '@/components/landing/Navbar'
+import HeroSection from '@/components/landing/HeroSection'
 
 const LandingPage = () => {
   const features = [
@@ -86,90 +86,10 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-sm border-b border-border/50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary-foreground">
-                <svg width={32} height={32} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                  <path d="m32 10 8 14 -8 14 -8 -14Z" fill="#10A37F" />
-                  <path d="m32 54 -8 -14 8 -14 8 14Z" fill="#10A37F" opacity={0.5} />
-                  <path cx={16} cy={16} r={4} fill="#10A37F" opacity={0.3} d="M40 32A8 8 0 0 1 32 40A8 8 0 0 1 24 32A8 8 0 0 1 40 32z" />
-                  <path d="M16 32q16 -12 32 0 -16 12 -32 0Z" stroke="#10A37F" strokeWidth={2} fill="none" />
-                </svg>
-              </div>
-              <span className="text-xl font-semibold text-foreground">Sidvia</span>
-            </div>
-            
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-muted-foreground hover:text-primary transition-colors">Features</a>
-              <a href="#testimonials" className="text-muted-foreground hover:text-primary transition-colors">Testimonials</a>
-              <a href="#pricing" className="text-muted-foreground hover:text-primary transition-colors">Pricing</a>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" asChild>
-                <Link href="/sign-in">Sign In</Link>
-              </Button>
-              <Button asChild className="btn-primary">
-                <Link href="/sign-up">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-8">
-            <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full text-primary text-sm font-medium">
-              <Sparkles className="w-4 h-4" />
-              AI-Powered Interview Coaching
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground max-w-4xl mx-auto leading-tight">
-              Master Your Next
-              <br />
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Job Interview
-              </span>
-            </h1>
-            
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Practice with our AI interviewer, get instant feedback, and boost your confidence. 
-              Join thousands who&apos;ve landed their dream jobs with Sidvia.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild className="btn-primary h-14 px-8 text-lg font-semibold max-sm:w-full">
-                <Link href="/sign-up" className="flex items-center gap-2">
-                  <Play className="h-5 w-5" />
-                  Start Practicing Free
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-              
-              <Button variant="outline" className="h-14 px-8 text-lg font-semibold">
-                Watch Demo
-              </Button>
-            </div>
-          </div>
-          
-          {/* Hero Image */}
-          <div className="mt-16 relative">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl rounded-full scale-75 opacity-30" />
-            <Image
-              src="/robot.png"
-              alt="AI Interview Assistant"
-              width={600}
-              height={600}
-              className="mx-auto drop-shadow-2xl rounded-2xl relative z-10"
-              priority
-            />
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Stats Section */}
       <section className="py-20 px-6 bg-muted/20">
@@ -199,7 +119,7 @@ const LandingPage = () => {
               Our AI-powered platform provides everything you need to excel in your next interview
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-all hover:-translate-y-1">
@@ -225,7 +145,7 @@ const LandingPage = () => {
               See how Sidvia has helped professionals land their dream jobs
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="p-6">
@@ -296,7 +216,7 @@ const LandingPage = () => {
               </div>
               <span className="text-xl font-semibold text-foreground">Sidvia</span>
             </div>
-            
+
             <div className="text-sm text-muted-foreground">
               © 2025 Sidvia Inc. All rights reserved.
             </div>
