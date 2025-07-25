@@ -5,12 +5,37 @@ import BlurText from './TextAnimations/BlurText/BlurText'
 import { Button } from '../ui/button'
 import MetaBalls from './Animations/MetaBalls/MetaBalls'
 import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { Marquee } from '../magicui/marquee'
+
+const companyIcons = [
+    {
+        alt: "Google",
+        src: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+    },
+    {
+        alt: "GitHub",
+        src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    },
+    {
+        alt: "Amazon",
+        src: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
+    },
+    {
+        alt: "Netflix",
+        src: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+    },
+    {
+        alt: "Apple",
+        src: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+    },
+];
 
 const herosection = () => {
 
     return (
 
-        <section className="pt-32 pb-20 px-6">
+        <section className="pt-32 px-6">
             <div className="max-w-7xl mx-auto">
                 <div className=''>
                     <div className='items-center flex flex-col justify-center'>
@@ -53,6 +78,31 @@ const herosection = () => {
                         </div>
                     </div>
                 </div>
+
+            </div>
+            {/* Companies icons marquee */}
+            <div className="mt-10 py-20 sm:py-32">
+                <h2 className="text-center text-2xl font-semibold text-white/80 mb-10">
+                    Trusted by the world’s most innovative teams
+                </h2>
+                <Marquee pauseOnHover className="[--duration:18s]">
+                    <div className="flex gap-6 md:gap-10 items-center">
+                        {companyIcons.map((icon) => (
+                            <div
+                                key={icon.alt}
+                                className="flex items-center justify-center h-10 w-24 md:h-12 md:w-40"
+                            >
+                                <Image
+                                    alt={icon.alt}
+                                    src={icon.src}
+                                    width={120}
+                                    height={48}
+                                    className="object-contain h-10 w-auto md:h-12 opacity-80 filter brightness-0 invert"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </Marquee>
             </div>
         </section>
     )

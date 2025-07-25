@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: [
+      "github.githubassets.com",
+
+    ],
+  },
 };
 
 export default nextConfig;
