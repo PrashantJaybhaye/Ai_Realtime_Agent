@@ -5,52 +5,14 @@ import Link from 'next/link'
 import {
   Play,
   Star,
-  Target,
-  Shield,
-  Clock,
-  MessageSquare,
-  BarChart3,
-  Headphones,
 } from 'lucide-react'
 import Navbar from '@/components/landing/Navbar'
 import HeroSection from '@/components/landing/HeroSection'
 import StatSection from '@/components/landing/StatSection'
+import FeatureSection from '@/components/landing/FeatureSection'
 
 const LandingPage = () => {
-  const features = [
-    {
-      icon: <MessageSquare className="w-6 h-6" />,
-      title: "AI-Powered Interviews",
-      description: "Practice with our advanced AI interviewer that adapts to your responses and provides realistic interview scenarios."
-    },
-    {
-      icon: <BarChart3 className="w-6 h-6" />,
-      title: "Detailed Analytics",
-      description: "Get comprehensive feedback on communication skills, technical knowledge, and areas for improvement."
-    },
-    {
-      icon: <Target className="w-6 h-6" />,
-      title: "Role-Specific Practice",
-      description: "Customize interviews for specific roles, experience levels, and technology stacks."
-    },
-    {
-      icon: <Clock className="w-6 h-6" />,
-      title: "24/7 Availability",
-      description: "Practice anytime, anywhere. Our AI interviewer is always ready when you are."
-    },
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: "Secure & Private",
-      description: "Your interview data is encrypted and secure. Practice with confidence knowing your privacy is protected."
-    },
-    {
-      icon: <Headphones className="w-6 h-6" />,
-      title: "Voice Recognition",
-      description: "Natural voice conversations with advanced speech recognition and real-time feedback."
-    }
-  ]
-
-  const testimonials = [
+    const testimonials = [
     {
       name: "Sarah Chen",
       role: "Software Engineer at Google",
@@ -87,30 +49,7 @@ const LandingPage = () => {
       <StatSection/>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-4xl font-bold text-foreground">Why Choose Sidvia?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our AI-powered platform provides everything you need to excel in your next interview
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-all hover:-translate-y-1">
-                <CardContent className="space-y-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeatureSection/>
 
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 px-6 bg-muted/20">

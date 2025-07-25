@@ -2,7 +2,7 @@
 
 import { Globe, Target, TrendingUp } from 'lucide-react'
 import React from 'react'
-import { motion } from 'framer-motion'
+import { Card, CardContent } from '../ui/card'
 
 const stats = [
   {
@@ -24,24 +24,22 @@ const stats = [
 
 const StatSection = () => {
   return (
-    <section className="py-20 px-6 bg-muted/30">
+    <section className="py-20 px-6 bg-muted/20">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
           {stats.map((stat, index) => (
-            <motion.div
+            <Card
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2, duration: 0.6 }}
-              viewport={{ once: true }}
-              className="bg-[#171717]/10 rounded-2xl shadow-lg hover:shadow-xl transition-shadow p-6 text-center border-2 border-white/10"
+              className="bg-[#171717]/10 rounded-2xl shadow-lg hover:shadow-xl p-6 text-center border-2 border-white/10 transition-all hover:-translate-y-1"
             >
-              <div className="w-14 h-14 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
-                {stat.icon}
-              </div>
-              <div className="text-4xl font-extrabold text-foreground">{stat.value}</div>
-              <div className="text-sm font-medium text-muted-foreground">{stat.label}</div>
-            </motion.div>
+              <CardContent>
+                <div className="w-14 h-14 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
+                  {stat.icon}
+                </div>
+                <div className="text-4xl font-extrabold text-foreground">{stat.value}</div>
+                <div className="text-sm font-medium text-muted-foreground">{stat.label}</div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
