@@ -65,7 +65,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button asChild className="btn-primary">
+            <Button asChild variant={"secondary"}>
               <Link href="/sign-up">Get Started</Link>
             </Button>
           </div>
