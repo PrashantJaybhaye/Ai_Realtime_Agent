@@ -4,9 +4,10 @@ import React from 'react'
 import BlurText from './TextAnimations/BlurText/BlurText'
 import { Button } from '../ui/button'
 import MetaBalls from './Animations/MetaBalls/MetaBalls'
-import { Sparkles } from 'lucide-react'
+import { Play, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import { Marquee } from '../magicui/marquee'
+import Link from 'next/link'
 
 const companyIcons = [
     {
@@ -73,7 +74,10 @@ const herosection = () => {
                         </p>
                         <div className='flex flex-row gap-5'>
 
-                            <Button variant={"secondary"}>Sign up</Button>
+                            <Button asChild variant={"secondary"}>
+                                <Link href={'/sign-up'}>
+                                    <Play />Get Started</Link>
+                            </Button>
                             <Button variant={"outline"}>Watch Demo</Button>
                         </div>
                     </div>

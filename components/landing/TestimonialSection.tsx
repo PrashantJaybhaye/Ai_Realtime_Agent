@@ -62,7 +62,7 @@ const cardVariants = {
 
 const TestimonialSection = () => {
   return (
-    <section id="testimonials" className="relative py-24 px-4 sm:px-6 bg-gradient-to-b from-background to-muted/10 overflow-hidden">
+    <section id="testimonials" className="relative py-18 px-4 sm:px-6 bg-gradient-to-b from-background to-muted/10 overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.05]"></div>

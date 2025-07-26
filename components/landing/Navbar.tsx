@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { LogIn } from "lucide-react";
 
 
 const Navbar = () => {
@@ -8,8 +9,8 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full z-50 bg-background/10 backdrop-blur-xl border-b border-border/40 shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-4 max-sm:py-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary-foreground">
+          <div className="flex items-center">
+            <div className="flex h-8 w-8 items-center justify-center">
               <svg
                 width={32}
                 height={32}
@@ -45,6 +46,12 @@ const Navbar = () => {
 
           <div className="hidden md:flex items-center gap-8">
             <a
+              href="#"
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              Home
+            </a>
+            <a
               href="#features"
               className="text-muted-foreground hover:text-primary transition-colors"
             >
@@ -56,17 +63,11 @@ const Navbar = () => {
             >
               Testimonials
             </a>
-            <a
-              href="#pricing"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Pricing
-            </a>
           </div>
 
           <div className="flex items-center gap-4">
             <Button asChild variant={"secondary"}>
-              <Link href="/sign-up">Get Started</Link>
+              <Link href="/sign-in"><LogIn />Login</Link>
             </Button>
           </div>
         </div>
