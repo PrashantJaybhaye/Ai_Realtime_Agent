@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { auth } from "@/firebase/client"
 import { signIn, signUp } from "@/lib/actions/auth.action"
 import { FirebaseError } from "firebase/app"
-import { useState } from "react"
+import { useState, startTransition } from "react"
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -44,7 +44,7 @@ export function LoginForm({
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true); // Start loading
+    setLoading(true);
 
     try {
       if (type === "sign-up") {
@@ -61,13 +61,16 @@ export function LoginForm({
 
         if (!result?.success) {
           toast.error(result?.message);
+          setLoading(false);
           return;
         }
 
-        toast.success("You’re all set! Sign in to continue.")
-        router.push('/sign-in')
+        toast.success("You're all set! Sign in to continue.")
+        startTransition(() => {
+          router.push('/sign-in')
+          setLoading(false)
+        })
       } else {
-
         const { email, password } = values
 
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -76,6 +79,7 @@ export function LoginForm({
 
         if (!idToken) {
           toast.error('Sign in failed')
+          setLoading(false);
           return;
         }
 
@@ -83,8 +87,11 @@ export function LoginForm({
           email, idToken,
         })
 
-        toast.success("Authentication successful. You’re now logged in.")
-        router.push('/')
+        toast.success("Authentication successful. You're logged in.")
+        startTransition(() => {
+          router.push('/')
+          setLoading(false)
+        })
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -155,8 +162,8 @@ export function LoginForm({
           
           <Button type="submit" className="w-full" disabled={loading}>
             {loading 
-            ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-            : isSignIn ? "Login" : "Get Started with Sidvia"}
+              ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+              : isSignIn ? "Login" : "Get Started with Sidvia"}
           </Button>
         </div>
         <div className="text-center text-sm">
