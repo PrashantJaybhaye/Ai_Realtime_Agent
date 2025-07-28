@@ -159,10 +159,13 @@ const FeedbackPage = async () => {
               Your interview skills are developing well. Continue practicing to achieve even better results and boost your confidence.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
-              <Button asChild className="btn-primary">
+              <Button asChild size="lg" className="gap-2 text-base font-medium">
                 <Link href="/interview">Take Another Interview</Link>
               </Button>
-              <Button variant="outline">View Performance Tips</Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="gap-2 text-base font-medium border-muted hover:border-primary">View Performance Tips</Button>
             </div>
           </div>
         </section>
@@ -196,11 +199,11 @@ const StatsCard = ({
       <div className={`stats-icon bg-${bg} text-${text} group-hover:bg-${color}-500/20 transition-colors`}>
         {icon}
       </div>
-      <div className="text-3xl font-bold text-foreground mb-2">
-        {value}{suffix && <span className="text-sm text-muted-foreground ml-1">{suffix}</span>}
+      <div className="text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">
+        {value}{suffix && <span className="text-base text-muted-foreground ml-1">{suffix}</span>}
       </div>
-      <div className="text-sm text-muted-foreground">{title}</div>
-      <div className={`text-xs text-${text} mt-1`}>{subtitle}</div>
+      <div className="text-base font-medium text-muted-foreground">{title}</div>
+      <div className={`text-sm text-${text} mt-1`}>{subtitle}</div>
     </div>
   );
 };

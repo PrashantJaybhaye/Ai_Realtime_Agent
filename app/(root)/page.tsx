@@ -40,7 +40,7 @@ const Page = async () => {
                         </div>
 
                         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-                            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-primary to-accent max-sm:bg-gradient-to-br max-sm:to-gray-500 bg-clip-text text-transparent">
                                 Interview Smarter,
                             </span>{" "}
                             <br className="hidden sm:block" />
@@ -52,7 +52,7 @@ const Page = async () => {
                         </p>
 
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
+                            <Button asChild size="lg" className="bg-dark-200 text-white hover:bg-dark-300 gap-2 text-base font-bold">
                                 <Link href="/interview" className="flex items-center gap-2">
                                     <Play className="h-5 w-5" />
                                     Start Practicing
@@ -60,7 +60,9 @@ const Page = async () => {
                                 </Link>
                             </Button>
 
-                            <Button variant="outline" className="h-12 px-8 text-base font-semibold border-border/60">
+                            <Button variant="outline"
+                                size="lg"
+                                className="gap-2 text-base font-bold border-muted hover:border-primary">
                                 View Past Results
                             </Button>
                         </div>
@@ -87,8 +89,8 @@ const Page = async () => {
                     <div className="stats-icon bg-blue-500/10 text-blue-500 group-hover:bg-blue-500/20 transition-colors">
                         <Users className="h-6 w-6" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-2">1000+</div>
-                    <div className="text-sm text-muted-foreground">Interviews Completed</div>
+                    <div className="text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">1000+</div>
+                    <div className="text-base font-medium text-muted-foreground">Interviews Completed</div>
                     <div className="text-xs text-green-500 mt-1">↗ +15% this month</div>
                 </div>
 
@@ -96,8 +98,8 @@ const Page = async () => {
                     <div className="stats-icon bg-green-500/10 text-green-500 group-hover:bg-green-500/20 transition-colors">
                         <TrendingUp className="h-6 w-6" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-2">95%</div>
-                    <div className="text-sm text-muted-foreground">Success Rate</div>
+                    <div className="text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">95%</div>
+                    <div className="text-base font-medium text-muted-foreground">Success Rate</div>
                     <div className="text-xs text-green-500 mt-1">↗ +2% improvement</div>
                 </div>
 
@@ -105,8 +107,8 @@ const Page = async () => {
                     <div className="stats-icon bg-purple-500/10 text-purple-500 group-hover:bg-purple-500/20 transition-colors">
                         <Zap className="h-6 w-6" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-2">24/7</div>
-                    <div className="text-sm text-muted-foreground">AI Availability</div>
+                    <div className="text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">24/7</div>
+                    <div className="text-base font-medium text-muted-foreground">AI Availability</div>
                     <div className="text-xs text-blue-500 mt-1">Always ready</div>
                 </div>
             </section>
@@ -200,13 +202,16 @@ const Page = async () => {
                         Join thousands of successful candidates who&apos;ve improved their interview skills with Sidvia
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
+                        <Button asChild size="lg" className="gap-2 text-base font-medium">
                             <Link href="/interview">
                                 <Play className="h-5 w-5 mr-2" />
                                 Start Practicing Now
                             </Link>
                         </Button>
-                        <Button variant="outline" className="h-12 px-8 text-base font-semibold">
+                        <Button
+                            variant="outline"
+                            size="lg"
+                            className="gap-2 text-base font-medium border-muted hover:border-primary">
                             Learn More
                         </Button>
                     </div>

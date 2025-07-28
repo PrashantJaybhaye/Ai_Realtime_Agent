@@ -4,10 +4,10 @@ import { getCurrentUser } from '@/lib/actions/auth.action'
 import UserError from '@/components/UserError'
 import Image from 'next/image'
 import Link from 'next/link'
-import { 
-  Target, 
-  Users, 
-  Award, 
+import {
+  Target,
+  Users,
+  Award,
   Zap,
   Heart,
   Globe,
@@ -24,9 +24,9 @@ const AboutPage = async () => {
   if (!user) return <UserError />
 
   const stats = [
-    { label: 'Interviews Completed', value: '5,000+', icon: <Target className="w-6 h-6" /> },
+    { label: 'Interviews Completed', value: '5k+', icon: <Target className="w-6 h-6" /> },
     { label: 'Success Rate', value: '95%', icon: <TrendingUp className="w-6 h-6" /> },
-    { label: 'Happy Users', value: '1,000+', icon: <Users className="w-6 h-6" /> },
+    { label: 'Happy Users', value: '1k+', icon: <Users className="w-6 h-6" /> },
     { label: 'Countries Served', value: '10+', icon: <Globe className="w-6 h-6" /> }
   ]
 
@@ -97,18 +97,20 @@ const AboutPage = async () => {
             </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-2">
-            We&apos;re on a mission to democratize interview success by providing personalized, 
+            We&apos;re on a mission to democratize interview success by providing personalized,
             AI-powered coaching that adapts to your unique strengths and areas for improvement.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-          <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
+          <Button asChild size="lg" className="bg-dark-200 text-white hover:bg-dark-300 gap-2 text-base font-bold">
             <Link href="/interview">
               Try Sidvia Now
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
-          <Button variant="outline" className="h-12 px-8 text-base font-semibold">
+          <Button variant="outline"
+            size="lg"
+            className="gap-2 text-base font-bold border-muted hover:border-primary">
             Watch Demo
           </Button>
         </div>
@@ -118,13 +120,13 @@ const AboutPage = async () => {
       <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
           <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow">
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 text-center">
               <div className="w-12 h-12 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary">
                 {stat.icon}
               </div>
               <div>
-                <div className="text-3xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-3xl max-sm:text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">{stat.value}</div>
+                <div className="text-sm font-medium text-muted-foreground">{stat.label}</div>
               </div>
             </CardContent>
           </Card>
@@ -134,19 +136,19 @@ const AboutPage = async () => {
       {/* Mission Section */}
       <section className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-foreground">Our Mission</h2>
+          <div className="space-y-3">
+            <h2 className="text-4xl font-bold text-foreground">Our Mission</h2>
             <p className="text-muted-foreground leading-relaxed">
-              At Sidvia, we believe that everyone deserves the opportunity to showcase their best self 
-              in interviews. Traditional interview preparation is often expensive, time-consuming, and 
+              At Sidvia, we believe that everyone deserves the opportunity to showcase their best self
+              in interviews. Traditional interview preparation is often expensive, time-consuming, and
               one-size-fits-all.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-2">
-              That&apos;s why we created an AI-powered platform that provides personalized, real-time feedback 
+              That&apos;s why we created an AI-powered platform that provides personalized, real-time feedback
               and coaching, making high-quality interview preparation accessible to everyone, everywhere.
             </p>
           </div>
-          
+
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-500" />
@@ -177,7 +179,7 @@ const AboutPage = async () => {
       {/* Values Section */}
       <section className="space-y-14">
         <div className="text-center space-y-6">
-          <h2 className="text-3xl font-bold text-foreground mb-2">Our Values</h2>
+          <h2 className="text-4xl font-bold text-foreground mb-2">Our Values</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             These core principles guide everything we do and shape how we build products for our users.
           </p>
@@ -242,8 +244,8 @@ const AboutPage = async () => {
               </div>
               <h2 className="text-3xl font-bold text-foreground">Advanced AI Technology</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Our proprietary AI models are trained on thousands of successful interviews across 
-                various industries and roles, providing you with insights that are both comprehensive 
+                Our proprietary AI models are trained on thousands of successful interviews across
+                various industries and roles, providing you with insights that are both comprehensive
                 and personalized.
               </p>
             </div>
@@ -300,25 +302,49 @@ const AboutPage = async () => {
       </section>
 
       {/* CTA Section */}
-      <section className="text-center space-y-8 mt-10">
+      <section className="text-center space-y-8 my-10">
         <h2 className="text-3xl font-bold text-foreground mb-2">Ready to Transform Your Interview Skills?</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
           Join thousands of professionals who&apos;ve already improved their interview performance with Sidvia&apos;s AI-powered coaching.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
-          <Button asChild className="btn-primary h-12 px-8 text-base font-semibold max-sm:w-full">
+          <Button asChild size="lg" className="gap-2 text-base font-medium">
             <Link href="/interview">
               Start Your Journey
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
           </Button>
-          <Button variant="outline" asChild className="h-12 px-8 text-base font-semibold">
+          <Button variant="outline"
+            size="lg"
+            className="gap-2 text-base font-medium border-muted hover:border-primary">
             <Link href="/pricing">
               View Pricing
             </Link>
           </Button>
         </div>
       </section>
+      
+      <footer className="bg-card/20 backdrop-blur-sm py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg">
+                <svg width={32} height={32} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m32 10 8 14 -8 14 -8 -14Z" fill="#10A37F" />
+                  <path d="m32 54 -8 -14 8 -14 8 14Z" fill="#10A37F" opacity={0.5} />
+                  <path cx={16} cy={16} r={4} fill="#10A37F" opacity={0.3} d="M40 32A8 8 0 0 1 32 40A8 8 0 0 1 24 32A8 8 0 0 1 40 32z" />
+                  <path d="M16 32q16 -12 32 0 -16 12 -32 0Z" stroke="#10A37F" strokeWidth={2} fill="none" />
+                </svg>
+              </div>
+              <span className="text-xl font-semibold text-foreground">Sidvia</span>
+            </div>
+
+            <div className="text-sm text-muted-foreground">
+              © 2025 Sidvia Inc. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

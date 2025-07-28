@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getCurrentUser } from '@/lib/actions/auth.action'
 import UserError from '@/components/UserError'
 import {
@@ -12,7 +12,12 @@ import {
   Globe,
   Twitter,
   Linkedin,
-  Github
+  Github,
+  Zap,
+  ShieldCheck,
+  User,
+  HelpCircle,
+  Handshake
 } from 'lucide-react'
 
 const ContactPage = async () => {
@@ -49,6 +54,29 @@ const ContactPage = async () => {
     { icon: <Github className="w-6 h-6" />, name: 'GitHub', url: '#' }
   ]
 
+  const faqs = [
+    {
+      question: "How does Sidvia work?",
+      answer: "Sidvia uses advanced AI to conduct realistic mock interviews and provide detailed feedback on your performance.",
+      icon: <Zap className="w-5 h-5 text-primary" />
+    },
+    {
+      question: "Is my data secure?",
+      answer: "Yes, we use enterprise-grade security measures to protect your personal information and interview data.",
+      icon: <ShieldCheck className="w-5 h-5 text-primary" />
+    },
+    {
+      question: "Can I practice for specific roles?",
+      answer: "Absolutely! Sidvia offers customized interviews for various roles, experience levels, and tech stacks.",
+      icon: <User className="w-5 h-5 text-primary" />
+    },
+    {
+      question: "What if I need technical support?",
+      answer: "Our support team is available via email, chat, and phone to help you with any technical issues.",
+      icon: <HelpCircle className="w-5 h-5 text-primary" />
+    }
+  ]
+
   return (
     <div className="container mx-auto px-4 md:px-8 space-y-20 md:space-y-28 lg:space-y-36">
       {/* Header Section */}
@@ -70,33 +98,95 @@ const ContactPage = async () => {
       </section>
 
       {/* Why Contact Us Section */}
-      <section className="max-w-3xl mx-auto bg-card/70 rounded-2xl shadow-lg border border-border/40 p-6 md:p-10 mb-10">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-6">Why Contact Us?</h2>
-        <ul className="space-y-4 text-muted-foreground text-base md:text-lg list-disc list-inside">
-          <li>Get personalized support for your interview prep journey</li>
-          <li>Share feedback or request new features</li>
-          <li>Report bugs or technical issues</li>
-          <li>Discuss partnership or enterprise solutions</li>
-        </ul>
+      {/* Why Contact Us Section - Redesigned */}
+      <section className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-primary/10 rounded-3xl border border-border/20 p-8 md:p-10 mb-12">
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-1 rounded-full text-primary text-sm font-medium mb-4">
+              <HelpCircle className="w-4 h-4" />
+              Support
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+              How we can help you
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Our team is ready to assist with any questions or needs you may have.
+            </p>
+          </div>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-muted-foreground text-base md:text-lg">
+            <li className="flex items-start gap-3">
+              <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                <User className="w-4 h-4 text-primary" />
+              </div>
+              <span>Personalized interview prep support</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                <MessageSquare className="w-4 h-4 text-primary" />
+              </div>
+              <span>Feedback & feature requests</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                <Zap className="w-4 h-4 text-primary" />
+              </div>
+              <span>Report technical issues</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <div className="bg-primary/10 p-1.5 rounded-full mt-0.5">
+                <Handshake className="w-4 h-4 text-primary" />
+              </div>
+              <span>Partnership opportunities</span>
+            </li>
+          </ul>
+        </div>
       </section>
 
-      {/* Contact Methods */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
-        {contactMethods.map((method, index) => (
-          <Card key={index} className="text-center p-6 md:p-10 bg-gradient-to-br from-primary/5 to-accent/5 border border-border/30 rounded-2xl shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
-            <CardContent className="space-y-6">
-              <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary shadow mb-2">
-                {method.icon}
-              </div>
-              <h3 className="text-lg md:text-xl font-bold text-foreground mb-2">{method.title}</h3>
-              <p className="text-muted-foreground text-sm md:text-base mb-2">{method.description}</p>
-              <p className="font-medium text-foreground mb-4">{method.contact}</p>
-              <Button className="btn-primary w-full font-semibold text-base">
-                {method.action}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+      {/* Contact Methods - Redesigned */}
+      <section className="space-y-8">
+        <div className="text-center max-w-2xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+            Choose your preferred contact method
+          </h2>
+          <p className="text-muted-foreground">
+            We offer multiple ways to get in touch based on your needs
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {contactMethods.map((method, index) => (
+            <Card
+              key={index}
+              className="group relative overflow-hidden border border-border/20 hover:border-primary/30 transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <CardContent className="p-6 space-y-5">
+                <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4`}>
+                  {method.icon}
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {method.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {method.description}
+                  </p>
+                </div>
+                <div className="space-y-3 pt-2">
+                  <p className="font-medium text-sm text-foreground/90">
+                    {method.contact}
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="w-full border-border/50 hover:border-primary/80 transition-colors"
+                  >
+                    {method.action}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
 
       {/* Office Info & Social Links */}
@@ -180,43 +270,54 @@ const ContactPage = async () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl p-8 md:p-14 border border-border/40 shadow-lg mt-10">
-        <div className="text-center space-y-8 md:space-y-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Frequently Asked Questions</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-lg mb-4">
-            Can&apos;t find what you&apos;re looking for? Check out our comprehensive FAQ section or reach out directly.
+      <section className="max-w-4xl mx-auto space-y-8">
+        <div className="text-center space-y-4">
+          <h2 className="text-2xl font-bold">Frequently asked questions</h2>
+          <p className="text-muted-foreground">
+            Can&apos;t find what you&apos;re looking for? Check out our comprehensive FAQ section.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 text-left">
-            <div className="space-y-4">
-              <h4 className="font-semibold text-foreground mb-1">How does Sidvia work?</h4>
-              <p className="text-muted-foreground text-sm md:text-base">
-                Sidvia uses advanced AI to conduct realistic mock interviews and provide detailed feedback on your performance.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold text-foreground mb-1">Is my data secure?</h4>
-              <p className="text-muted-foreground text-sm md:text-base">
-                Yes, we use enterprise-grade security measures to protect your personal information and interview data.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold text-foreground mb-1">Can I practice for specific roles?</h4>
-              <p className="text-muted-foreground text-sm md:text-base">
-                Absolutely! Sidvia offers customized interviews for various roles, experience levels, and tech stacks.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold text-foreground mb-1">What if I need technical support?</h4>
-              <p className="text-muted-foreground text-sm md:text-base">
-                Our support team is available via email, chat, and phone to help you with any technical issues.
-              </p>
-            </div>
-          </div>
-          <Button variant="outline" className="mt-8 text-base font-semibold px-8 py-3 rounded-xl">
-            View All FAQs
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {faqs.map((faq, index) => (
+            <Card key={index} className="hover:border-primary transition-colors">
+              <CardHeader className="flex flex-row items-start space-y-0 space-x-4 pb-2">
+                {faq.icon}
+                <CardTitle className="text-base">{faq.question}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{faq.answer}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <div className="text-center">
+          <Button variant="outline">
+            View all FAQs
           </Button>
         </div>
       </section>
+
+      <footer className="bg-card/20 backdrop-blur-sm py-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg">
+                <svg width={32} height={32} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m32 10 8 14 -8 14 -8 -14Z" fill="#10A37F" />
+                  <path d="m32 54 -8 -14 8 -14 8 14Z" fill="#10A37F" opacity={0.5} />
+                  <path cx={16} cy={16} r={4} fill="#10A37F" opacity={0.3} d="M40 32A8 8 0 0 1 32 40A8 8 0 0 1 24 32A8 8 0 0 1 40 32z" />
+                  <path d="M16 32q16 -12 32 0 -16 12 -32 0Z" stroke="#10A37F" strokeWidth={2} fill="none" />
+                </svg>
+              </div>
+              <span className="text-xl font-semibold text-foreground">Sidvia</span>
+            </div>
+
+            <div className="text-sm text-muted-foreground">
+              © 2025 Sidvia Inc. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
