@@ -11,7 +11,7 @@ const UserError = () => {
       </p>
       <button
         onClick={() => window.location.reload()}
-        className="mt-2 px-4 py-2 bg-[#10A37F] text-white rounded-md hover:bg-[#0e8e6b] transition"
+        className="mt-2 px-4 py-2 bg-[#00E676] text-white rounded-md hover:bg-[#0e8e6b] transition"
       >
         Refresh Page
       </button>
