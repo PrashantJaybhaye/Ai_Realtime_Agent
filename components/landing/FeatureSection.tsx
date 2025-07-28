@@ -70,7 +70,7 @@ const FeatureSection = () => {
     <section id="features" className="relative py-20 px-4 sm:px-6 bg-gradient-to-b from-background to-muted/10 overflow-hidden">
       {/* Subtle grid background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.05]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.08]"></div>
       </div>
       
       {/* Floating gradient elements */}
