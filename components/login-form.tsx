@@ -15,7 +15,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { auth } from "@/firebase/client"
 import { signIn, signUp } from "@/lib/actions/auth.action"
 import { FirebaseError } from "firebase/app"
-import { useState, startTransition } from "react"
+import { useState, useEffect } from "react"
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -31,6 +31,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form"> & { type: FormType }) {
   const [loading, setLoading] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
   const router = useRouter();
   const formSchema = authFormSchema(type);
 
@@ -42,6 +43,15 @@ export function LoginForm({
       password: "",
     },
   })
+
+  // This effect will clear the loading state when the component unmounts
+  // (which happens when the page navigation completes)
+  useEffect(() => {
+    return () => {
+      setLoading(false)
+      setIsNavigating(false)
+    }
+  }, [])
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
@@ -66,10 +76,9 @@ export function LoginForm({
         }
 
         toast.success("You're all set! Sign in to continue.")
-        startTransition(() => {
-          router.push('/sign-in')
-          setLoading(false)
-        })
+        setIsNavigating(true)
+        router.push('/sign-in')
+        
       } else {
         const { email, password } = values
 
@@ -88,10 +97,8 @@ export function LoginForm({
         })
 
         toast.success("Authentication successful. You're logged in.")
-        startTransition(() => {
-          router.push('/')
-          setLoading(false)
-        })
+        setIsNavigating(true)
+        router.push('/')
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -117,8 +124,8 @@ export function LoginForm({
       } else {
         toast.error("Unexpected error. Please try again later.");
       }
-    } finally {
-      setLoading(false); // End loading in all cases
+      setLoading(false);
+      setIsNavigating(false)
     }
   }
 
@@ -160,8 +167,8 @@ export function LoginForm({
             type="password"
           />
           
-          <Button type="submit" className="w-full" disabled={loading}>
-            {loading 
+          <Button type="submit" className="w-full" disabled={loading || isNavigating}>
+            {(loading || isNavigating) 
               ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
               : isSignIn ? "Login" : "Get Started with Sidvia"}
           </Button>
