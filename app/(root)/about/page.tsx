@@ -96,7 +96,7 @@ const AboutPage = async () => {
               Preparation with AI
             </span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-2">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-2">
             We&apos;re on a mission to democratize interview success by providing personalized,
             AI-powered coaching that adapts to your unique strengths and areas for improvement.
           </p>

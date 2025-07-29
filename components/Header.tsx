@@ -8,9 +8,16 @@ import { logout } from '@/lib/actions/auth.action'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { toast } from 'sonner'
-import { LogOut, Settings } from 'lucide-react'
+import { LogOut, Settings, Shield } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
     user: User | null
@@ -97,43 +104,78 @@ export default function Header({ user }: HeaderProps) {
                     })}
                 </div>
 
-                {/* User Button */}
-                <div className="hidden md:flex items-center gap-3 relative group">
-                    {/* User Profile */}
-                    <div className="flex items-center gap-3">
-                        <div className="relative">
-                            {/* Avatar Circle */}
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary/20 text-primary font-semibold text-sm cursor-pointer">
-                                {user?.name?.charAt(0).toUpperCase() || 'U'}
-                            </div>
-
-                            {/* Tooltip Name on Hover */}
-                            {user?.name && (
-                                <div className="absolute left-1/2 -translate-x-1/2 mt-2 px-2 py-1 text-xs bg-muted text-foreground rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-10 whitespace-nowrap">
-                                    {user.name}
+                {/* Desktop Profile Section */}
+                {user && (
+                    <div className="hidden md:block">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <div className="flex items-center gap-2 cursor-pointer group transition hover:opacity-90">
+                                    {/* Avatar (smaller, clean) */}
+                                    <div className="w-8 h-8 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center uppercase text-xs">
+                                        {user.name?.charAt(0) || "U"}
+                                    </div>
+                                    <span className="text-sm font-medium text-foreground">{user.name}</span>
                                 </div>
-                            )}
-                        </div>
-                    </div>
+                            </DropdownMenuTrigger>
 
-                    {/* Logout Button */}
-                    <Button
-                        variant="outline"
-                        onClick={() => {
-                            handleLogout()
-                            setMobileMenuOpen(false)
-                        }}
-                        className="justify-start text-red-400 border-red-400/20 hover:bg-red-400/10 text-sm h-9"
-                    >
-                        <LogOut className="h-4 w-4" />
-                        Sign out
-                    </Button>
-                </div>
+                            <DropdownMenuContent
+                                align="end"
+                                className="w-64 p-3 rounded-xl shadow-md border border-border bg-background z-50"
+                            >
+                                {/* User Info */}
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="w-10 h-10 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center uppercase text-sm">
+                                        {user?.name?.charAt(0) || "U"}
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <h4 className="text-sm font-semibold">{user.name}</h4>
+                                        <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                                        <span className="text-[11px] font-medium text-muted-foreground mt-1">
+                                            {user?.isAdmin ? "Admin" : "Member"}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <DropdownMenuSeparator />
+
+                                <DropdownMenuItem asChild>
+                                    <Link href="#" className="w-full">
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <Settings className="w-4 h-4" />
+                                            Settings
+                                        </div>
+                                    </Link>
+                                </DropdownMenuItem>
+
+                                {user.isAdmin && (
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/admin/dashboard" className="w-full">
+                                            <div className="flex items-center gap-2 text-sm">
+                                                <Shield className="w-4 h-4" />
+                                                Admin
+                                            </div>
+                                        </Link>
+                                    </DropdownMenuItem>
+                                )}
+
+                                <DropdownMenuSeparator />
+
+                                <DropdownMenuItem
+                                    onClick={handleLogout}
+                                    className="text-red-500 hover:bg-red-50 hover:text-red-600"
+                                >
+                                    <LogOut className="w-4 h-4 mr-2" />
+                                    Sign out
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                )}
 
                 {/* Mobile Hamburger Icon */}
                 <div className="md:hidden">
                     <button onClick={() => setMobileMenuOpen(true)} className="text-white">
-                        <Bars3Icon className="w-6 h-6" />
+                        <Bars3Icon className="size-6 mt-1" />
                     </button>
                 </div>
             </nav>
@@ -167,7 +209,7 @@ export default function Header({ user }: HeaderProps) {
                             className="-m-2.5 rounded-md p-2.5 text-gray-400"
                         >
                             <span className="sr-only">Close menu</span>
-                            <XMarkIcon aria-hidden="true" className="size-6 mt-3" />
+                            <XMarkIcon aria-hidden="true" className="size-6 mt-1" />
                         </button>
                     </div>
                     <div className="mt-6 flow-root">

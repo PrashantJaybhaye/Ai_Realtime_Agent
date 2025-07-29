@@ -87,7 +87,7 @@ const FeedbackPage = async () => {
             Feedback History
           </span>
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-2">
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-2">
           Track your progress, review detailed feedback, and identify areas for improvement across all your practice sessions.
         </p>
       </section>
