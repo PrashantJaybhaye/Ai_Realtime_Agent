@@ -1,6 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
 @import "tailwindcss";
 
+/* Performance optimizations */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize font loading */
+@font-face {
+  font-family: 'Mona Sans';
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -157,6 +184,10 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   p {
     @apply text-light-100/80;
@@ -172,6 +203,26 @@
   }
   li {
     @apply text-light-100;
+  }
+}
+
+/* Performance optimizations for animations */
+@layer utilities {
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .optimize-legibility {
+    text-rendering: optimizeLegibility;
+  }
+  
+  .contain-layout {
+    contain: layout;
+  }
+  
+  .contain-paint {
+    contain: paint;
   }
 }
 

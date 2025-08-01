@@ -1,5 +1,6 @@
-import { cn, getTechLogos } from "@/lib/utils"
+import { cn, getTechLogosCached } from "@/lib/utils"
 import Image from "next/image"
+import { memo } from "react"
 
 interface TechIconProps {
   techStack: string[]
@@ -7,8 +8,13 @@ interface TechIconProps {
   size?: "sm" | "md" | "lg"
 }
 
-const DisplayTechIcons = async ({ techStack, maxVisible = 3 }: TechIconProps) => {
-  const techIcons = await getTechLogos(techStack)
+const DisplayTechIcons = memo(async ({ techStack, maxVisible = 3 }: TechIconProps) => {
+  // Early return for empty tech stack
+  if (!techStack || techStack.length === 0) {
+    return <div className="text-sm text-muted-foreground">No tech stack specified</div>;
+  }
+
+  const techIcons = await getTechLogosCached(techStack)
 
   return (
     <div className="flex flex-row items-center">
@@ -31,6 +37,9 @@ const DisplayTechIcons = async ({ techStack, maxVisible = 3 }: TechIconProps) =>
             alt={tech}
             width={20}
             height={20}
+            loading="lazy"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
             className="size-5 object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-200"
           />
         </div>
@@ -48,6 +57,8 @@ const DisplayTechIcons = async ({ techStack, maxVisible = 3 }: TechIconProps) =>
       )}
     </div>
   )
-}
+});
+
+DisplayTechIcons.displayName = "DisplayTechIcons";
 
 export default DisplayTechIcons

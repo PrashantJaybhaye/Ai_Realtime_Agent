@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import { Button } from './ui/button'
 import Loader from './Loader'
@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { LogOut, Settings, Shield } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -18,6 +19,12 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+
+// Lazy load heavy components
+const DynamicDropdownMenu = dynamic(() => 
+    import("@/components/ui/dropdown-menu").then(mod => ({ default: mod.DropdownMenu })),
+    { ssr: false }
+);
 
 interface HeaderProps {
     user: User | null
@@ -29,31 +36,49 @@ export default function Header({ user }: HeaderProps) {
     const [isNavigating, setIsNavigating] = useState(false)
     const router = useRouter()
     const pathname = usePathname()
-    const NavLinks = [
+    
+    // Memoize navigation links to prevent re-renders
+    const NavLinks = useMemo(() => [
         { label: 'Home', path: '/' },
         { label: 'Feedback', path: '/feedback' },
         { label: 'About', path: '/about' },
         { label: 'Contact', path: '/contact' },
-    ]
+    ], []);
 
     useEffect(() => {
         // Reset navigation state when path changes
         setIsNavigating(false)
     }, [pathname])
 
-    const handleNavigation = (href: string) => {
+    const handleNavigation = useCallback((href: string) => {
         if (pathname === href) return
 
         setIsNavigating(true)
         router.push(href)
-    }
+    }, [pathname, router]);
 
-    const handleLogout = async () => {
+    const handleLogout = useCallback(async () => {
         await logout()
         toast.success("Log out successfull")
         router.push('/sign-in')
-    }
+    }, [router]);
 
+    // Memoize logo component to prevent re-renders
+    const LogoComponent = useMemo(() => (
+        <div onClick={() => handleNavigation("/")} className="flex items-center gap-2 cursor-pointer group">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary-foreground">
+                <svg width={54} height={54} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m32 10 8 14 -8 14 -8 -14Z" fill="#00E676" />
+                    <path d="m32 54 -8 -14 8 -14 8 14Z" fill="#00E676" opacity={0.5} />
+                    <path cx={16} cy={16} r={4} fill="#00E676" opacity={0.3} d="M40 32A8 8 0 0 1 32 40A8 8 0 0 1 24 32A8 8 0 0 1 40 32z" />
+                    <path d="M16 32q16 -12 32 0 -16 12 -32 0Z" stroke="#00E676" strokeWidth={3} fill="none" />
+                </svg>
+            </div>
+            <span className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                Sidvia
+            </span>
+        </div>
+    ), [handleNavigation]);
     return (
         <>
             {/* Global Loading Overlay */}
@@ -65,26 +90,13 @@ export default function Header({ user }: HeaderProps) {
             )}
 
             {/* Header Content */}
-            <nav className="flex items-center justify-between rounded-lg ">
+            <nav className="flex items-center justify-between rounded-lg" role="navigation" aria-label="Main navigation">
                 {/* Logo Link */}
-                <div onClick={() => handleNavigation("/")} className="flex items-center gap-2 cursor-pointer group">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary-foreground">
-                        <svg width={54} height={54} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m32 10 8 14 -8 14 -8 -14Z" fill="#00E676" />
-                            <path d="m32 54 -8 -14 8 -14 8 14Z" fill="#00E676" opacity={0.5} />
-                            <path cx={16} cy={16} r={4} fill="#00E676" opacity={0.3} d="M40 32A8 8 0 0 1 32 40A8 8 0 0 1 24 32A8 8 0 0 1 40 32z" />
-                            <path d="M16 32q16 -12 32 0 -16 12 -32 0Z" stroke="#00E676" strokeWidth={3} fill="none" />
-                        </svg>
-                    </div>
-                    <span className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
-                        Sidvia
-                    </span>
-                </div>
+                {LogoComponent}
 
                 {/* Navigation Links */}
                 <div className="hidden md:flex items-center gap-6 mt-2">
                     {NavLinks.map((item, index) => {
-                        // const href = `/${item.toLowerCase()}`
                         const isActive = pathname === item.path
 
                         return (
@@ -107,7 +119,7 @@ export default function Header({ user }: HeaderProps) {
                 {/* Desktop Profile Section */}
                 {user && (
                     <div className="hidden md:block">
-                        <DropdownMenu>
+                        <DynamicDropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <div className="flex items-center gap-2 cursor-pointer group transition hover:opacity-90">
                                     {/* Avatar (smaller, clean) */}
@@ -168,13 +180,18 @@ export default function Header({ user }: HeaderProps) {
                                     Sign out
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
-                        </DropdownMenu>
+                        </DynamicDropdownMenu>
                     </div>
                 )}
 
                 {/* Mobile Hamburger Icon */}
                 <div className="md:hidden">
-                    <button onClick={() => setMobileMenuOpen(true)} className="text-white">
+                    <button 
+                        onClick={() => setMobileMenuOpen(true)} 
+                        className="text-white"
+                        aria-label="Open mobile menu"
+                        aria-expanded={mobileMenuOpen}
+                    >
                         <Bars3Icon className="size-6 mt-1" />
                     </button>
                 </div>

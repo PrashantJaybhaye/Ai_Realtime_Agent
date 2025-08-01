@@ -6,8 +6,9 @@ import { Calendar, Star, Target, Zap } from "lucide-react"
 import { getFeedbackByInterviewId } from "@/lib/actions/general.action"
 import { getCurrentUser } from "@/lib/actions/auth.action"
 import ClientActionButton from "./ClientActionButton"
+import { memo } from "react"
 
-const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: InterviewCardProps) => {
+const InterviewCard = memo(async ({ id, userId, role, type, techstack, createdAt }: InterviewCardProps) => {
   const user = await getCurrentUser();
 
   const feedback = userId && id
@@ -48,6 +49,9 @@ const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: I
                 alt="Interview cover"
                 width={64}
                 height={64}
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                 className="object-cover w-full h-full"
               />
             </div>
@@ -107,6 +111,8 @@ const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: I
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl" />
     </div>
   )
-}
+});
+
+InterviewCard.displayName = "InterviewCard";
 
 export default InterviewCard

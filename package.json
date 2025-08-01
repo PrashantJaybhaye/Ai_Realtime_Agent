@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true next build",
+    "lighthouse": "lighthouse http://localhost:3000 --output=json --output-path=./lighthouse-report.json"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.22",

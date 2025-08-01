@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 
-const Loader = () => {
+const Loader = memo(() => {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black space-y-4">
       <div className="flex space-x-2">
@@ -13,6 +13,8 @@ const Loader = () => {
       <p className="text-slate-300 text-sm font-medium animate-pulse">Loading Sidvia...</p>
     </div>
   );
-};
+});
+
+Loader.displayName = "Loader";
 
 export default Loader;
