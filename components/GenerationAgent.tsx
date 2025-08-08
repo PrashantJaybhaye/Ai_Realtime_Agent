@@ -114,7 +114,7 @@ export default function GenerationAgent({ userName, userId, type, questions = []
         <div className="card-interviewer">
           <div className="avatar">
             <div className="relative z-10 flex items-center justify-center w-full h-full">
-              <svg width={64} height={64} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <svg width={85} height={85} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
                 <path d="m32 10 8 14 -8 14 -8 -14Z" fill="white" />
                 <path d="m32 54 -8 -14 8 -14 8 14Z" fill="white" opacity={0.7} />
                 <path

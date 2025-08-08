@@ -24,32 +24,32 @@ const AboutPage = async () => {
   if (!user) return <UserError />
 
   const stats = [
-    { label: 'Interviews Completed', value: '5k+', icon: <Target className="w-6 h-6" /> },
+    { label: 'Interviews Conducted', value: '5k+', icon: <Target className="w-6 h-6" /> },
     { label: 'Success Rate', value: '95%', icon: <TrendingUp className="w-6 h-6" /> },
-    { label: 'Happy Users', value: '1k+', icon: <Users className="w-6 h-6" /> },
-    { label: 'Countries Served', value: '10+', icon: <Globe className="w-6 h-6" /> }
+    { label: 'Satisfied Users', value: '1k+', icon: <Users className="w-6 h-6" /> },
+    { label: 'Countries Reached', value: '10+', icon: <Globe className="w-6 h-6" /> }
   ]
 
   const values = [
     {
       icon: <Heart className="w-8 h-8 text-red-500" />,
       title: 'Empowerment',
-      description: 'We believe everyone deserves the confidence to succeed in their career journey.'
+      description: 'Building confidence to help you succeed.'
     },
     {
       icon: <Lightbulb className="w-8 h-8 text-yellow-500" />,
       title: 'Innovation',
-      description: 'Cutting-edge AI technology that adapts to your unique learning style and needs.'
+      description: 'AI that adapts to your learning style.'
     },
     {
       icon: <Shield className="w-8 h-8 text-blue-500" />,
       title: 'Trust',
-      description: 'Your privacy and data security are our top priorities in everything we do.'
+      description: 'Protecting your privacy and data.'
     },
     {
       icon: <Award className="w-8 h-8 text-purple-500" />,
       title: 'Excellence',
-      description: 'We strive for the highest quality in our AI feedback and user experience.'
+      description: 'Delivering top-tier AI feedback.'
     }
   ]
 
@@ -57,25 +57,25 @@ const AboutPage = async () => {
     {
       name: 'Sarah Chen',
       role: 'CEO & Co-Founder',
-      bio: 'Former Google recruiter with 10+ years of hiring experience.',
+      bio: 'Ex-Google recruiter with 10+ years in talent acquisition.',
       image: '/user-avatar.png'
     },
     {
       name: 'Marcus Johnson',
       role: 'CTO & Co-Founder',
-      bio: 'AI researcher and former Microsoft engineer specializing in NLP.',
+      bio: 'AI researcher and former Microsoft NLP engineer.',
       image: '/user-avatar.png'
     },
     {
       name: 'Emily Rodriguez',
       role: 'Head of Product',
-      bio: 'Product leader with expertise in user experience and career development.',
+      bio: 'Expert in UX and career development.',
       image: '/user-avatar.png'
     },
     {
       name: 'David Kim',
       role: 'Lead AI Engineer',
-      bio: 'Machine learning expert focused on conversational AI and feedback systems.',
+      bio: 'Specializes in conversational AI and feedback systems.',
       image: '/user-avatar.png'
     }
   ]
@@ -90,15 +90,14 @@ const AboutPage = async () => {
             About Sidvia
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-foreground">
-            Revolutionizing Interview
+            Transforming Interview Preparation
             <br />
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Preparation with AI
+              with AI Precision
             </span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-2">
-            We&apos;re on a mission to democratize interview success by providing personalized,
-            AI-powered coaching that adapts to your unique strengths and areas for improvement.
+            Personalized AI coaching designed to help you ace interviews by building on your strengths and targeting your growth areas.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
@@ -136,31 +135,26 @@ const AboutPage = async () => {
       {/* Mission Section */}
       <section className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6">
-          <div className="space-y-3">
-            <h2 className="text-4xl font-bold text-foreground">Our Mission</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              At Sidvia, we believe that everyone deserves the opportunity to showcase their best self
-              in interviews. Traditional interview preparation is often expensive, time-consuming, and
-              one-size-fits-all.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mb-2">
-              That&apos;s why we created an AI-powered platform that provides personalized, real-time feedback
-              and coaching, making high-quality interview preparation accessible to everyone, everywhere.
-            </p>
-          </div>
+          <h2 className="text-4xl font-bold text-foreground">Our Mission</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            We empower you to showcase your best self. Traditional preparation is costly, generic, and slow.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-2">
+            Sidvia’s AI platform delivers instant, personalized coaching—making expert interview prep accessible and effective for everyone.
+          </p>
 
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              <span className="text-foreground">Personalized AI coaching for every user</span>
+              <span className="text-foreground">Tailored AI coaching</span>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              <span className="text-foreground">Real-time feedback and improvement suggestions</span>
+              <span className="text-foreground">Real-time feedback</span>
             </div>
             <div className="flex items-center gap-3">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              <span className="text-foreground">Accessible and affordable for everyone</span>
+              <span className="text-foreground">Accessible & affordable</span>
             </div>
           </div>
         </div>
@@ -181,7 +175,7 @@ const AboutPage = async () => {
         <div className="text-center space-y-6">
           <h2 className="text-4xl font-bold text-foreground mb-2">Our Values</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            These core principles guide everything we do and shape how we build products for our users.
+            These core principles guide our work and shape the products we build.
           </p>
         </div>
 
@@ -205,7 +199,7 @@ const AboutPage = async () => {
         <div className="text-center space-y-4">
           <h2 className="text-3xl font-bold text-foreground">Meet Our Team</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            We&apos;re a diverse team of engineers, designers, and career experts passionate about helping people succeed.
+            A diverse group of engineers, designers, and career experts passionate about your success.
           </p>
         </div>
 
@@ -226,7 +220,7 @@ const AboutPage = async () => {
                   <h3 className="text-lg font-semibold text-foreground mb-1">{member.name}</h3>
                   <p className="text-primary text-sm font-medium">{member.role}</p>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{member.bio}</p>
               </CardContent>
             </Card>
           ))}
@@ -244,9 +238,7 @@ const AboutPage = async () => {
               </div>
               <h2 className="text-3xl font-bold text-foreground">Advanced AI Technology</h2>
               <p className="text-muted-foreground leading-relaxed">
-                Our proprietary AI models are trained on thousands of successful interviews across
-                various industries and roles, providing you with insights that are both comprehensive
-                and personalized.
+                Our AI models are built on data from thousands of successful interviews across industries, providing personalized and actionable insights.
               </p>
             </div>
             <div className="space-y-6">
@@ -254,21 +246,21 @@ const AboutPage = async () => {
                 <div className="w-2 h-2 bg-primary rounded-full mt-2" />
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Natural Language Processing</h4>
-                  <p className="text-muted-foreground text-sm">Advanced NLP analyzes your responses for clarity, structure, and content quality.</p>
+                  <p className="text-muted-foreground text-sm">Analyzes your responses for clarity, structure, and content quality.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2" />
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Real-time Feedback</h4>
-                  <p className="text-muted-foreground text-sm">Get instant insights and suggestions during your practice sessions.</p>
+                  <p className="text-muted-foreground text-sm">Instant insights and suggestions during your practice.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-primary rounded-full mt-2" />
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Adaptive Learning</h4>
-                  <p className="text-muted-foreground text-sm">Our AI learns from your progress and adapts to your unique learning style.</p>
+                  <p className="text-muted-foreground text-sm">Our AI evolves with your progress to tailor coaching uniquely to you.</p>
                 </div>
               </div>
             </div>
@@ -303,9 +295,9 @@ const AboutPage = async () => {
 
       {/* CTA Section */}
       <section className="text-center space-y-8 my-10">
-        <h2 className="text-3xl font-bold text-foreground mb-2">Ready to Transform Your Interview Skills?</h2>
+        <h2 className="text-3xl font-bold text-foreground mb-2">Ready to Elevate Your Interview Skills?</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
-          Join thousands of professionals who&apos;ve already improved their interview performance with Sidvia&apos;s AI-powered coaching.
+          Join thousands who have enhanced their success with Sidvia’s AI-driven coaching.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
           <Button asChild size="lg" className="gap-2 text-base font-medium">
@@ -323,7 +315,7 @@ const AboutPage = async () => {
           </Button>
         </div>
       </section>
-      
+
       <footer className="bg-card/20 backdrop-blur-sm py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
