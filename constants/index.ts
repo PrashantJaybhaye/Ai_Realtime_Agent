@@ -107,14 +107,10 @@ export const interviewer: CreateAssistantDTO = {
     language: "en",
   },
   voice: {
-    provider: "11labs",
-    voiceId: "sarah",
-    stability: 0.4,
-    similarityBoost: 0.8,
+    provider: "vapi",
+    voiceId: "Neha",
     speed: 0.9,
-    style: 0.5,
-    useSpeakerBoost: true,
-  },
+    },
   model: {
     provider: "openai",
     model: "gpt-4",
