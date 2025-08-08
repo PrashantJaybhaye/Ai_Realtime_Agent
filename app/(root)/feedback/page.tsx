@@ -122,7 +122,7 @@ const FeedbackPage = async () => {
       <ActionButtonProvider>
         <section className="space-y-8 mt-2">
           {interviewsWithFeedback.length > 0 ? (
-            <div className="interviews-section space-y-8">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {interviewsWithFeedback.map((interview) => (
                 <InterviewCard key={interview.id} {...interview} />
               ))}
@@ -138,7 +138,7 @@ const FeedbackPage = async () => {
                   Complete your first interview to start tracking your progress and receiving detailed AI feedback.
                 </p>
                 <Button asChild className="btn-primary">
-                  <Link href="/interview" className="flex items-center gap-2">
+                  <Link href="/" className="flex items-center gap-2">
                     <Star className="h-4 w-4" />
                     Start Your First Interview
                     <ArrowRight className="h-4 w-4" />
