@@ -37,7 +37,6 @@ import {
   CheckCircle,
   XCircle,
   FileText,
-  BarChart3
 } from 'lucide-react';
 import { toast } from 'sonner';
 import Link from 'next/link';
@@ -329,7 +328,7 @@ export default function AdminDashboard() {
           <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
           <p className="text-muted-foreground">Manage users and monitor system activity</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <Button asChild variant="outline" className="gap-2">
             <Link href="/admin/interviews">
               <FileText className="w-4 h-4" />
@@ -357,7 +356,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4">
         <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -423,20 +422,6 @@ export default function AdminDashboard() {
               </div>
               <div className="h-12 w-12 bg-amber-500/20 rounded-lg flex items-center justify-center">
                 <FileText className="h-6 w-6 text-amber-500" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border-indigo-500/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Avg Score</p>
-                <p className="text-2xl font-bold text-foreground">{interviewStats.averageScore}%</p>
-              </div>
-              <div className="h-12 w-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-                <BarChart3 className="h-6 w-6 text-indigo-500" />
               </div>
             </div>
           </CardContent>
