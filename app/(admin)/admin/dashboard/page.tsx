@@ -35,9 +35,12 @@ import {
   Activity,
   TrendingUp,
   CheckCircle,
-  XCircle
+  XCircle,
+  FileText,
+  BarChart3
 } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 interface User {
   uid: string;
@@ -55,9 +58,15 @@ interface UserStats {
   newThisWeek: number;
 }
 
+interface InterviewStats {
+  total: number;
+  finalized: number;
+  averageScore: number;
+}
 export default function AdminDashboard() {
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [interviewStats, setInterviewStats] = useState<InterviewStats>({ total: 0, finalized: 0, averageScore: 0 });
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'disabled'>('all');
@@ -72,6 +81,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchUsers();
+    fetchStats();
   }, []);
 
   useEffect(() => {
@@ -108,6 +118,15 @@ export default function AdminDashboard() {
     }
   };
 
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/admin/stats');
+      const data = await response.json();
+      setInterviewStats(data.interviews);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+    }
+  };
   const filterUsers = () => {
     let filtered = users;
 
@@ -311,6 +330,12 @@ export default function AdminDashboard() {
           <p className="text-muted-foreground">Manage users and monitor system activity</p>
         </div>
         <div className="flex gap-3">
+          <Button asChild variant="outline" className="gap-2">
+            <Link href="/admin/interviews">
+              <FileText className="w-4 h-4" />
+              Manage Interviews
+            </Link>
+          </Button>
           <Button 
             variant="outline" 
             onClick={fetchUsers}
@@ -332,7 +357,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -384,6 +409,34 @@ export default function AdminDashboard() {
               </div>
               <div className="h-12 w-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                 <TrendingUp className="h-6 w-6 text-purple-500" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-amber-500/20">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Total Interviews</p>
+                <p className="text-2xl font-bold text-foreground">{interviewStats.total}</p>
+              </div>
+              <div className="h-12 w-12 bg-amber-500/20 rounded-lg flex items-center justify-center">
+                <FileText className="h-6 w-6 text-amber-500" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-indigo-500/10 to-indigo-600/5 border-indigo-500/20">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-muted-foreground">Avg Score</p>
+                <p className="text-2xl font-bold text-foreground">{interviewStats.averageScore}%</p>
+              </div>
+              <div className="h-12 w-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                <BarChart3 className="h-6 w-6 text-indigo-500" />
               </div>
             </div>
           </CardContent>

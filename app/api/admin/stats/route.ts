@@ -21,6 +21,9 @@ export async function GET() {
     // Get interview statistics
     const interviewsSnapshot = await db.collection('interviews').get();
     const totalInterviews = interviewsSnapshot.size;
+    const finalizedInterviews = interviewsSnapshot.docs.filter(doc => 
+      doc.data().finalized === true
+    ).length;
 
     // Get feedback statistics
     const feedbackSnapshot = await db.collection('feedback').get();
@@ -40,7 +43,9 @@ export async function GET() {
         newThisWeek: newUsersThisWeek
       },
       interviews: {
-        total: totalInterviews
+        total: totalInterviews,
+        finalized: finalizedInterviews,
+        averageScore: Math.round(averageScore)
       },
       feedback: {
         total: totalFeedback,
