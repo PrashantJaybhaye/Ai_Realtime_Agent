@@ -86,9 +86,13 @@ const ProfilePage = async () => {
                     <Calendar className="w-4 h-4" />
                     <span>Joined {joinDate}</span>
                   </div>
-                  {user.isAdmin && (
+                  {user.isAdmin ? (
                     <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
                       Admin
+                    </Badge>
+                  ) : (
+                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                      Member
                     </Badge>
                   )}
                 </div>
