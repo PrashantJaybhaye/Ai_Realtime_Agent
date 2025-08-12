@@ -6,7 +6,6 @@ import {
   TrendingUp, 
   Target, 
   Award, 
-  Star, 
   Calendar,
   BarChart3,
   CheckCircle,
@@ -26,7 +25,6 @@ const ProfileStats = ({
   averageScore, 
   highestScore, 
   joinDate,
-  isAdmin = false 
 }: ProfileStatsProps) => {
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-400'

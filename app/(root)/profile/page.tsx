@@ -6,14 +6,11 @@ import { getInterviewByUserId, getFeedbackByInterviewId } from '@/lib/actions/ge
 import UserError from '@/components/UserError'
 import InterviewCard from '@/components/InterviewCard'
 import {
-  User,
   Calendar,
   Award,
   TrendingUp,
   Target,
   BarChart3,
-  Settings,
-  Edit,
   Star,
   Clock,
   CheckCircle
@@ -95,19 +92,6 @@ const ProfilePage = async () => {
                     </Badge>
                   )}
                 </div>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <Button asChild className="gap-2">
-                  <Link href="/settings">
-                    <Settings className="w-4 h-4" />
-                    Settings
-                  </Link>
-                </Button>
-                <Button variant="outline" className="gap-2">
-                  <Edit className="w-4 h-4" />
-                  Edit Profile
-                </Button>
               </div>
             </div>
           </div>

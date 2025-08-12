@@ -8,7 +8,7 @@ import { logout } from '@/lib/actions/auth.action'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { toast } from 'sonner'
-import { LogOut, Settings, Shield } from 'lucide-react'
+import { LogOut, Shield, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import {
@@ -138,26 +138,27 @@ export default function Header({ user }: HeaderProps) {
 
                                 <DropdownMenuSeparator />
 
-                                <DropdownMenuItem asChild>
-                                    <Link href="#" className="w-full">
-                                        <div className="flex items-center gap-2 text-sm">
-                                            <Settings className="w-4 h-4" />
-                                            Settings
-                                        </div>
-                                    </Link>
+                                <DropdownMenuItem onClick={() => {
+                                    handleNavigation("/profile");
+                                    setMobileMenuOpen(false);
+                                }} className="w-full">
+                                    <div className="flex items-center gap-2 text-sm">
+                                        <User className="w-4 h-4" />
+                                        Profile
+                                    </div>
                                 </DropdownMenuItem>
 
                                 {user.isAdmin && (
-                                    <DropdownMenuItem asChild>
-                                        <Link href="/admin/dashboard" className="w-full">
-                                            <div className="flex items-center gap-2 text-sm">
-                                                <Shield className="w-4 h-4" />
-                                                Admin
-                                            </div>
-                                        </Link>
+                                    <DropdownMenuItem onClick={() => {
+                                        handleNavigation("/admin/dashboard");
+                                        setMobileMenuOpen(false);
+                                    }} className="w-full">
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <Shield className="w-4 h-4" />
+                                            Admin
+                                        </div>
                                     </DropdownMenuItem>
                                 )}
-
                                 <DropdownMenuSeparator />
 
                                 <DropdownMenuItem
@@ -268,9 +269,16 @@ export default function Header({ user }: HeaderProps) {
                                     </div>
                                 </div>
 
-                                <Button variant="ghost" className="w-full justify-start btn-ghost text-sm">
-                                    <Settings className="h-5 w-5" />
-                                    Settings
+                                <Button
+                                    variant="ghost"
+                                    className="w-full justify-start btn-ghost text-sm"
+                                    onClick={() => {
+                                        handleNavigation("/profile");
+                                        setMobileMenuOpen(false);
+                                    }}
+                                >
+                                    <User className="h-5 w-5" />
+                                    Profile
                                 </Button>
                                 <Button
                                     variant="outline"
@@ -287,7 +295,7 @@ export default function Header({ user }: HeaderProps) {
                         </div>
                     </div>
                 </DialogPanel>
-            </Dialog>
+            </Dialog >
 
         </>
     )
