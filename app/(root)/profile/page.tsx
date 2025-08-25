@@ -47,7 +47,6 @@ const ProfilePage = async () => {
 
   const highestScore = feedbackScores.length > 0 ? Math.max(...feedbackScores) : 0
   const totalInterviews = completedInterviews.length
-  const joinDate = dayjs().subtract(Math.floor(Math.random() * 365), 'days').format('MMMM YYYY')
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return 'text-green-400'
@@ -84,7 +83,7 @@ const ProfilePage = async () => {
                 <div className="flex items-center gap-4 mt-2">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="w-4 h-4" />
-                    <span>Joined {joinDate}</span>
+                    <span>Joined {user.joinDate ? dayjs(user.joinDate).format('MMM YYYY') : 'N/A'}</span>
                   </div>
                   {user.isAdmin ? (
                     <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">

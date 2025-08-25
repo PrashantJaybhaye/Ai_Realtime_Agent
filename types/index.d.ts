@@ -37,6 +37,7 @@ interface User {
   email: string;
   id: string;
   isAdmin: boolean;
+  joinDate?: string;
 }
 
 interface InterviewCardProps {

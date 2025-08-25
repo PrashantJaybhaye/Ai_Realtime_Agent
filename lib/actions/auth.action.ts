@@ -100,16 +100,23 @@ export async function getCurrentUser(): Promise<User | null> {
 
   try {
     const deccodedClaims = await auth.verifySessionCookie(sessionCookie, true);
-    const userRecord = await db
+    
+    // Get user record from Firebase Auth to get creation time
+    const authUserRecord = await auth.getUser(deccodedClaims.uid);
+    
+    const firestoreUserRecord = await db
       .collection("users")
       .doc(deccodedClaims.uid)
       .get();
 
-    if (!userRecord.exists) return null;
+    if (!firestoreUserRecord.exists) return null;
 
+    const userData = firestoreUserRecord.data();
+    
     return {
-      ...userRecord.data(),
-      id: userRecord.id,
+      ...userData,
+      id: firestoreUserRecord.id,
+      joinDate: authUserRecord.metadata.creationTime,
     } as User;
   } catch (e) {
     console.log(e);
