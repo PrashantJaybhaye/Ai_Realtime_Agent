@@ -11,7 +11,6 @@ import {
   Zap,
   Heart,
   Globe,
-  ArrowRight,
   CheckCircle,
   Star,
   TrendingUp,
@@ -100,19 +99,6 @@ const AboutPage = async () => {
             Personalized AI coaching designed to help you ace interviews by building on your strengths and targeting your growth areas.
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-          <Button asChild size="lg" className="bg-dark-200 text-white hover:bg-dark-300 gap-2 text-base font-bold">
-            <Link href="/interview">
-              Try Sidvia Now
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
-          </Button>
-          <Button variant="outline"
-            size="lg"
-            className="gap-2 text-base font-bold border-muted hover:border-primary">
-            Watch Demo
-          </Button>
-        </div>
       </section>
 
       {/* Stats Section */}
@@ -133,7 +119,7 @@ const AboutPage = async () => {
       </section>
 
       {/* Mission Section */}
-      <section className="grid md:grid-cols-2 gap-12 items-center">
+      <section className="grid md:grid-cols-2 gap-20 items-center">
         <div className="space-y-6">
           <h2 className="text-4xl font-bold text-foreground">Our Mission</h2>
           <p className="text-muted-foreground leading-relaxed">
@@ -159,13 +145,13 @@ const AboutPage = async () => {
           </div>
         </div>
         <div className="relative mt-10 md:mt-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 blur-3xl rounded-full" />
           <Image
-            src="/robot.png"
-            alt="AI Interview Assistant"
-            width={500}
-            height={500}
-            className="relative rounded-2xl shadow-2xl"
+            src="/Young_candidate.png"
+            alt="Young Candidate"
+            width={450}
+            height={450}
+            className="relative rounded-full brightness-80"
           />
         </div>
       </section>
@@ -294,29 +280,26 @@ const AboutPage = async () => {
       </section>
 
       {/* CTA Section */}
-      <section className="text-center space-y-8 my-10">
-        <h2 className="text-3xl font-bold text-foreground mb-2">Ready to Elevate Your Interview Skills?</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto mb-4">
-          Join thousands who have enhanced their success with Sidvia’s AI-driven coaching.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
-          <Button asChild size="lg" className="gap-2 text-base font-medium">
-            <Link href="/interview">
-              Start Your Journey
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Link>
-          </Button>
-          <Button variant="outline"
-            size="lg"
-            className="gap-2 text-base font-medium border-muted hover:border-primary">
-            <Link href="/pricing">
-              View Pricing
-            </Link>
-          </Button>
+      <section className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-3xl p-8 md:p-12 border border-border/50 my-2.5">
+        <div className="text-center space-y-6">
+          <h3 className="text-2xl font-bold text-foreground">Ready to Elevate Your Interview Skills?</h3>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Join thousands who have enhanced their success with Sidvia’s AI-driven coaching.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-2">
+            <Button asChild size="lg" className="gap-2 text-base font-medium">
+              <Link href="/interview">Start Your Journey</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="gap-2 text-base font-medium border-muted hover:border-primary">View Performance Tips</Button>
+          </div>
         </div>
       </section>
 
-      <footer className="bg-card/20 backdrop-blur-sm py-8 px-6">
+      <footer className="backdrop-blur-sm py-8 px-6">
+        <hr className='mb-12' />
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center">
@@ -330,7 +313,6 @@ const AboutPage = async () => {
               </div>
               <span className="text-xl font-semibold text-foreground">Sidvia</span>
             </div>
-
             <div className="text-sm text-muted-foreground">
               © 2025 Sidvia Inc. All rights reserved.
             </div>

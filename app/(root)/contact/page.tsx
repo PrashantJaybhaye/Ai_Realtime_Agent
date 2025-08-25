@@ -296,8 +296,9 @@ const ContactPage = async () => {
           </Button>
         </div>
       </section>
-
-      <footer className="bg-card/20 backdrop-blur-sm py-8 px-6">
+      
+      <footer className="backdrop-blur-sm py-8 px-6">
+        <hr className='mb-12' />
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center">
@@ -311,7 +312,6 @@ const ContactPage = async () => {
               </div>
               <span className="text-xl font-semibold text-foreground">Sidvia</span>
             </div>
-
             <div className="text-sm text-muted-foreground">
               © 2025 Sidvia Inc. All rights reserved.
             </div>
