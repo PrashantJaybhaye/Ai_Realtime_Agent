@@ -147,3 +147,35 @@ export async function logout() {
     sameSite: "lax",
   });
 }
+
+export async function signInWithGoogle(params: SignInParams) {
+  const { email, idToken } = params;
+
+  try {
+    // Get user from Firebase Auth
+    const userRecord = await auth.getUserByEmail(email);
+
+    // Check if user exists in Firestore, if not, create it
+    const firestoreUser = await db.collection("users").doc(userRecord.uid).get();
+    if (!firestoreUser.exists) {
+      await db.collection("users").doc(userRecord.uid).set({
+        name: userRecord.displayName || "",
+        email: userRecord.email,
+        isAdmin: false,
+      });
+    }
+
+    await setSessionCookie(idToken);
+
+    return {
+      success: true,
+      message: "Google sign-in successful.",
+    };
+  } catch (error) {
+    console.error("Google sign-in error", error);
+    return {
+      success: false,
+      message: "Google sign-in failed.",
+    };
+  }
+}

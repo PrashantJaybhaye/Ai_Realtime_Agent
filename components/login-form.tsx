@@ -11,9 +11,9 @@ import {
 import { toast } from "sonner"
 import FormField from "./FormField"
 import { useRouter } from "next/navigation"
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { auth } from "@/firebase/client"
-import { signIn, signUp } from "@/lib/actions/auth.action"
+import { signIn, signUp, signInWithGoogle } from "@/lib/actions/auth.action"
 import { FirebaseError } from "firebase/app"
 import { useState, useEffect } from "react"
 
@@ -34,6 +34,7 @@ export function LoginForm({
   const [isNavigating, setIsNavigating] = useState(false)
   const router = useRouter();
   const formSchema = authFormSchema(type);
+  const provider = new GoogleAuthProvider();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -129,6 +130,40 @@ export function LoginForm({
     }
   }
 
+  async function handleGoogleSignIn() {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const idToken = await user.getIdToken();
+
+      // Call your server-side signInWithGoogle action
+      const response = await signInWithGoogle({
+        email: user.email!,
+        idToken,
+      });
+
+      if (!response?.success) {
+        toast.error(response?.message || "Google sign-in failed.");
+        setLoading(false);
+        setIsNavigating(false);
+        return;
+      }
+
+      toast.success("Google sign-in successful. You're logged in.");
+      setIsNavigating(true);
+      router.push('/');
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        toast.error(error.message || "Google sign-in failed.");
+      } else {
+        toast.error("Unexpected error during Google sign-in.");
+      }
+      setLoading(false);
+      setIsNavigating(false);
+    }
+  }
+
   const isSignIn = type === 'sign-in';
 
   return (
@@ -171,6 +206,16 @@ export function LoginForm({
             {(loading || isNavigating) 
               ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
               : isSignIn ? "Login" : "Get Started with Sidvia"}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full flex items-center justify-center gap-2"
+            onClick={handleGoogleSignIn}
+            disabled={loading || isNavigating}
+          >
+            <svg width="20" height="20" viewBox="0 0 48 48" className="mr-2"><g><path fill="#4285F4" d="M43.611 20.083H42V20H24v8h11.303C33.972 32.091 29.418 35 24 35c-6.065 0-11-4.935-11-11s4.935-11 11-11c2.507 0 4.81.857 6.646 2.278l6.364-6.364C33.084 6.527 28.761 5 24 5 12.954 5 4 13.954 4 25s8.954 20 20 20c11.046 0 20-8.954 20-20 0-1.341-.138-2.651-.389-3.917z"/><path fill="#34A853" d="M6.306 14.691l6.571 4.819C14.655 16.1 19.001 13 24 13c2.507 0 4.81.857 6.646 2.278l6.364-6.364C33.084 6.527 28.761 5 24 5c-7.732 0-14.313 4.388-17.694 10.691z"/><path fill="#FBBC05" d="M24 45c5.315 0 10.065-1.824 13.797-4.938l-6.366-5.217C29.418 35 24 35 24 35c-5.418 0-9.972-2.909-11.303-6.917l-6.571 4.819C9.687 40.612 16.268 45 24 45z"/><path fill="#EA4335" d="M43.611 20.083H42V20H24v8h11.303C34.527 32.091 29.418 35 24 35c-5.418 0-9.972-2.909-11.303-6.917l-6.571 4.819C9.687 40.612 16.268 45 24 45c7.732 0 14.313-4.388 17.694-10.691z"/></g></svg>
+            Sign in with Google
           </Button>
         </div>
         <div className="text-center text-sm">
