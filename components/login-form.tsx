@@ -207,15 +207,32 @@ export function LoginForm({
               ? <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
               : isSignIn ? "Login" : "Get Started with Sidvia"}
           </Button>
+          
+          <div className="relative my-2.5">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
+          
           <Button
             type="button"
             variant="outline"
-            className="w-full flex items-center justify-center gap-2"
+            className="w-full flex items-center justify-center gap-3 text-gray-50 border-gray-300 hover:bg-gray-400 transition-all duration-200"
             onClick={handleGoogleSignIn}
             disabled={loading || isNavigating}
           >
-            <svg width="20" height="20" viewBox="0 0 48 48" className="mr-2"><g><path fill="#4285F4" d="M43.611 20.083H42V20H24v8h11.303C33.972 32.091 29.418 35 24 35c-6.065 0-11-4.935-11-11s4.935-11 11-11c2.507 0 4.81.857 6.646 2.278l6.364-6.364C33.084 6.527 28.761 5 24 5 12.954 5 4 13.954 4 25s8.954 20 20 20c11.046 0 20-8.954 20-20 0-1.341-.138-2.651-.389-3.917z"/><path fill="#34A853" d="M6.306 14.691l6.571 4.819C14.655 16.1 19.001 13 24 13c2.507 0 4.81.857 6.646 2.278l6.364-6.364C33.084 6.527 28.761 5 24 5c-7.732 0-14.313 4.388-17.694 10.691z"/><path fill="#FBBC05" d="M24 45c5.315 0 10.065-1.824 13.797-4.938l-6.366-5.217C29.418 35 24 35 24 35c-5.418 0-9.972-2.909-11.303-6.917l-6.571 4.819C9.687 40.612 16.268 45 24 45z"/><path fill="#EA4335" d="M43.611 20.083H42V20H24v8h11.303C34.527 32.091 29.418 35 24 35c-5.418 0-9.972-2.909-11.303-6.917l-6.571 4.819C9.687 40.612 16.268 45 24 45c7.732 0 14.313-4.388 17.694-10.691z"/></g></svg>
-            Sign in with Google
+            <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            <span className="font-medium">Sign in with Google</span>
           </Button>
         </div>
         <div className="text-center text-sm">
