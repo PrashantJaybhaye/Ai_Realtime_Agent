@@ -1,4 +1,4 @@
-</br></br></br>
+<br><br><br>
 <p align="center">
   <img src="https://skillicons.dev/icons?i=nextjs,react,ts,tailwind,firebase,nodejs" />
 </p>
@@ -6,211 +6,169 @@
 <p align="center">
   <b>Additional Libraries:</b> Radix UI · VAPI · Zod · Sonner · Day.js · clsx · tailwind-merge
 </p>
-</br></br></br>
+<br><br><br>
 
-# Sidvia Ai
+# Sidvia AI
 
 **Smart Interactive Digital Voice-based Interview Application**
 
-[https://github.com/PrashantJaybhaye/Ai_Realtime_Agent](https://github.com/PrashantJaybhaye/Ai_Realtime_Agent)
+[Project Repository](https://github.com/PrashantJaybhaye/Ai_Realtime_Agent)
 
-This project is a cutting-edge interview simulation platform that leverages AI to conduct interactive, voice-based mock interviews and provide instant feedback. Designed to help job seekers enhance their interview skills, the application offers personalized coaching and performance analytics to boost confidence and preparedness.
+Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock interviews. It helps job seekers improve their interview skills through interactive sessions, instant feedback, and detailed analytics.
 
-## Features and Functionality
+---
 
--   **AI-Powered Voice Interviews:** Conduct realistic mock interviews with an AI interviewer capable of adapting to user responses in real-time using `@vapi-ai/web` and VAPI.
--   **Customizable Interview Generation:** Generate interview questions tailored to specific roles, experience levels, and technology stacks, driven by AI.  Configuration through the `/app/api/vapi/generate/route.ts` endpoint.
--   **Real-time Feedback:** Get immediate assessments on communication skills, technical knowledge, and overall performance, which are saved using Firebase.
--   **Performance Analytics:** Track progress, review past performances, and identify areas for improvement using detailed analytics dashboards.
--   **Admin Panel:** Manage users, interviews, and system statistics through a dedicated admin dashboard (accessible at `/admin/dashboard`).
--   **User Authentication:** Secure user authentication and authorization using Firebase Auth.  Guards are present in `app/(root)/layout.tsx` and `app/(admin)/layout.tsx` to control access.
--   **Landing Page:** Marketing and introduction of the platform using Next.js components.
--   **Responsive Design:** Functional across devices.
+## Table of Contents
+
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [Contact](#contact)
+
+---
+
+## Features
+
+- **AI-Powered Voice Interviews:** Realistic, adaptive mock interviews using `@vapi-ai/web` and VAPI.
+- **Customizable Interview Generation:** Tailor questions by role, experience, and tech stack. Configurable via `/app/api/vapi/generate/route.ts`.
+- **Real-time Feedback:** Immediate assessment of communication, technical skills, and performance, stored in Firebase.
+- **Performance Analytics:** Track progress and review detailed analytics dashboards.
+- **Admin Panel:** Manage users, interviews, and system stats at `/admin/dashboard`.
+- **User Authentication:** Secure login via Firebase Auth, with route guards for protected pages.
+- **Responsive Design:** Fully functional across devices.
+- **Landing Page:** Engaging introduction and marketing using Next.js components.
+
+---
 
 ## Technology Stack
 
--   **Next.js:** React framework for building server-rendered applications and API routes.
--   **React:** JavaScript library for building user interfaces.
--   **TypeScript:** Superset of JavaScript that adds static typing.
--   **Tailwind CSS:** Utility-first CSS framework for styling the user interface.
--   **Radix UI:**  A library of unstyled, accessible React primitives for building design systems and high-quality web apps.
--   **Firebase:** Backend-as-a-Service (BaaS) providing authentication, database (Firestore), and cloud functions.
--   **@vapi-ai/web:** Voice API library for enabling real-time voice interaction.
--   **@ai-sdk/google:** AI SDK for interacting with Google's AI models (Gemini).
--   **Framer Motion:** A production-ready motion library for React.
--   **Zod:** TypeScript-first schema validation with static type inference.
--   **Sonner:**  A library for toast notifications.
--   **Dayjs:**  Immutable date library for parsing, validating, manipulating, and formatting dates.
--   **clsx and tailwind-merge:** Utility functions for conditional CSS class names and Tailwind CSS class merging.
--   **styled-components:** CSS-in-JS library (used for Loader.tsx).
+- **Frontend:** Next.js, React, TypeScript, Tailwind CSS, Radix UI, Framer Motion, styled-components
+- **Backend:** Firebase (Auth, Firestore, Admin SDK), @vapi-ai/web, @ai-sdk/google
+- **Utilities:** Zod, Sonner, Day.js, clsx, tailwind-merge
+
+---
 
 ## Prerequisites
 
-Before you begin, ensure you have met the following requirements:
+- Node.js (v18+)
+- npm
+- Firebase project (Firestore, Auth, Admin SDK)
+- VAPI account and API token
 
--   Node.js (v18 or higher) and npm installed.
--   Firebase project set up with Firestore, Authentication enabled, and Firebase Admin SDK service account configured.
--   VAPI account and API token obtained from VAPI.
--   Environment variables configured for Firebase and VAPI.
+---
 
-## Installation Instructions
+## Installation
 
-1.  **Clone the repository:**
-
+1. **Clone the repository:**
     ```bash
     git clone https://github.com/PrashantJaybhaye/Ai_Realtime_Agent.git
     cd Ai_Realtime_Agent
     ```
 
-2.  **Install dependencies:**
-
+2. **Install dependencies:**
     ```bash
     npm install
     ```
 
-3.  **Set up environment variables:**
+3. **Configure environment variables:**
+    - Create a `.env.local` file in the root directory:
+      ```
+      NEXT_PUBLIC_VAPI_WORKFLOW_ID=
+      NEXT_PUBLIC_VAPI_WEB_TOKEN=
+      GOOGLE_GENERATIVE_AI_API_KEY=
+      NEXT_PUBLIC_FIREBASE_API_KEY=
+      NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+      NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+      NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+      NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+      NEXT_PUBLIC_FIREBASE_APP_ID=
+      NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+      FIREBASE_PROJECT_ID=
+      FIREBASE_PRIVATE_KEY=
+      FIREBASE_CLIENT_EMAIL=
+      ```
 
-    Create a `.env.local` file in the root directory and add the following variables:
+4. **Initialize Firebase Admin SDK:**
+    - Ensure `firebase/admin.ts` is set up with your service account credentials.
 
-    ```
-    NEXT_PUBLIC_VAPI_WORKFLOW_ID=
-    NEXT_PUBLIC_VAPI_WEB_TOKEN=
-
-    GOOGLE_GENERATIVE_AI_API_KEY=
-
-    NEXT_PUBLIC_FIREBASE_API_KEY=
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-    NEXT_PUBLIC_FIREBASE_APP_ID=
-    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
-
-    FIREBASE_PROJECT_ID=
-    FIREBASE_PRIVATE_KEY=
-    FIREBASE_CLIENT_EMAIL=
-
-    ```
-
-4.  **Initialize Firebase Admin SDK:**
-
-    Ensure the Firebase Admin SDK is properly initialized in `firebase/admin.ts`. Verify that the `credential` is correctly configured using the service account key.
-
-5.  **Run the application:**
-
+5. **Start the development server:**
     ```bash
     npm run dev
     ```
+    - Access the app at [http://localhost:3000](http://localhost:3000).
 
-    This will start the Next.js development server, and you can access the application at `http://localhost:3000`.
+---
 
-## Usage Guide
+## Usage
 
-1.  **User Authentication:**
+### 1. Authentication
 
-    -   Sign up for a new account via the `/sign-up` route.
-    -   Log in with existing credentials via the `/sign-in` route.
-    -   Users will be redirected to the main dashboard (`/`) after successful login.
+- Sign up at `/sign-up` or log in at `/sign-in`.
+- After login, users are redirected to the dashboard (`/`).
 
-2.  **Interview Simulation:**
+### 2. Interview Simulation
 
-    -   Navigate to `/interview` to generate a new interview.  This uses `components/GenerationAgent.tsx` to initiate an AI interview.
-    -   Participate in voice-based interviews.  `components/Agent.tsx` handles this process.
-    -   After the interview, receive real-time feedback and analytics.  This functionality is invoked by `lib/actions/general.action.ts`.
+- Go to `/interview` to generate a new interview (`components/GenerationAgent.tsx`).
+- Participate in voice-based interviews (`components/Agent.tsx`).
+- Receive real-time feedback and analytics (`lib/actions/general.action.ts`).
 
-3.  **Feedback Review:**
+### 3. Feedback Review
 
-    -   Review past interview performances and feedback scores on your profile page at `/profile`.
-    -   Detailed feedback reports are available at `/interview/[id]/feedback` for each completed interview.
+- View past interviews and feedback at `/profile`.
+- Detailed reports are available at `/interview/[id]/feedback`.
 
-4.  **Admin Dashboard:**
+### 4. Admin Dashboard
 
-    -   Administrators can access the admin dashboard at `/admin/dashboard`.  This is guarded by `app/(admin)/layout.tsx` and `lib/actions/auth.action.ts`.
-    -   Manage users, enable/disable accounts, and view system statistics.
-    -   Manage interview data, finalize drafts, and export data as CSV files through the `/admin/interviews` page.
+- Admins access `/admin/dashboard` (guarded by `app/(admin)/layout.tsx`).
+- Manage users, interviews, and export data as CSV.
 
-## API Documentation
+---
 
-The application utilizes several API endpoints for managing users, interviews, and statistics.
+## API Endpoints
 
--   `/api/users`:
-    -   `GET`: Retrieves a list of all users. Used by `app/(admin)/admin/dashboard/page.tsx`.
+- **Users**
+  - `GET /api/users`: List all users (admin dashboard).
+  - `POST /api/admin/users`: Single user actions (disable, enable, delete, view).
+  - `POST /api/admin/users/bulk`: Bulk user actions.
 
--   `/api/admin/users`:
-    -   `POST`: Performs actions on a single user (disable, enable, delete, view).
-        Example usage:
+- **Stats**
+  - `GET /api/admin/stats`: System statistics.
 
-        ```json
-        {
-            "action": "disable",
-            "userId": "some-user-id"
-        }
-        ```
+- **Interviews**
+  - `GET /api/admin/interviews`: List all interviews.
+  - `POST /api/admin/interviews`: Single interview actions.
+  - `POST /api/admin/interviews/bulk`: Bulk interview actions.
 
--   `/api/admin/users/bulk`:
-    -   `POST`: Performs bulk actions on users (disable, enable, delete).
-        Example usage:
+- **Interview Generation**
+  - `POST /app/api/vapi/generate`: Generate interview questions.
+    ```json
+    {
+      "type": "technical",
+      "role": "Software Engineer",
+      "level": "Mid-Level",
+      "techstack": "React, Node.js",
+      "amount": 10,
+      "userid": "some-user-id"
+    }
+    ```
 
-        ```json
-        {
-            "action": "delete",
-            "userIds": ["user1", "user2"]
-        }
-        ```
+---
 
--   `/api/admin/stats`:
-    -   `GET`: Retrieves statistics about users, interviews, and feedback.  Used by `app/(admin)/admin/dashboard/page.tsx`.
+## Contributing
 
--   `/api/admin/interviews`:
-    -   `GET`: Retrieves a list of all interviews.
-    -   `POST`: Performs actions on a single interview (delete, update, view).
-        Example usage:
+Contributions are welcome!
 
-        ```json
-        {
-            "action": "delete",
-            "interviewId": "some-interview-id"
-        }
-        ```
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Implement and test your changes.
+4. Submit a pull request with a clear description.
 
--   `/api/admin/interviews/bulk`:
-    -   `POST`: Performs bulk actions on interviews (delete, finalize, unfinalize).
-        Example usage:
+---
 
-        ```json
-        {
-            "action": "finalize",
-            "interviewIds": ["interview1", "interview2"]
-        }
-        ```
+## Contact
 
--   `/app/api/vapi/generate`:
-    -   `POST`: Generates interview questions based on the provided parameters.
-
-        ```json
-        {
-            "type": "technical",
-            "role": "Software Engineer",
-            "level": "Mid-Level",
-            "techstack": "React, Node.js",
-            "amount": 10,
-            "userid": "some-user-id"
-        }
-        ```
-
-## Contributing Guidelines
-
-Contributions are welcome! To contribute to this project:
-
-```
-1.  Fork the repository.
-2.  Create a new branch for your feature or bug fix.
-3.  Implement your changes.
-4.  Test your changes thoroughly.
-5.  Submit a pull request with a clear description of your changes and the problem they solve.
-
-```
-
-## Contact/Support Information
-
-For any questions or support, please contact: gwscary@gmail.com
+For questions or support, contact: [gwscary@gmail.com](mailto:gwscary@gmail.com)
