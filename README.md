@@ -16,7 +16,7 @@
 
 Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock interviews. It helps job seekers improve their interview skills through interactive sessions, instant feedback, and detailed analytics.
 
----
+
 
 ## Table of Contents
 
@@ -29,7 +29,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
 - [Contributing](#contributing)
 - [Contact](#contact)
 
----
+
 
 ## Features
 
@@ -42,7 +42,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
 - **Responsive Design:** Fully functional across devices.
 - **Landing Page:** Engaging introduction and marketing using Next.js components.
 
----
+
 
 ## Technology Stack
 
@@ -50,7 +50,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
 - **Backend:** Firebase (Auth, Firestore, Admin SDK), @vapi-ai/web, @ai-sdk/google
 - **Utilities:** Zod, Sonner, Day.js, clsx, tailwind-merge
 
----
+
 
 ## Prerequisites
 
@@ -59,7 +59,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
 - Firebase project (Firestore, Auth, Admin SDK)
 - VAPI account and API token
 
----
+
 
 ## Installation
 
@@ -101,7 +101,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
     ```
     - Access the app at [http://localhost:3000](http://localhost:3000).
 
----
+
 
 ## Usage
 
@@ -126,7 +126,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
 - Admins access `/admin/dashboard` (guarded by `app/(admin)/layout.tsx`).
 - Manage users, interviews, and export data as CSV.
 
----
+
 
 ## API Endpoints
 
@@ -156,7 +156,7 @@ Sidvia AI is an advanced platform for simulating AI-powered, voice-based mock in
     }
     ```
 
----
+
 
 ## Contributing
 
@@ -167,7 +167,7 @@ Contributions are welcome!
 3. Implement and test your changes.
 4. Submit a pull request with a clear description.
 
----
+
 
 ## Contact
 
