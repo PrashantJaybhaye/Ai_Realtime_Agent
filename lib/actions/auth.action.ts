@@ -2,6 +2,7 @@
 
 import { auth, db } from "@/firebase/admin";
 import { cookies } from "next/headers";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const ONE_WEEK = 60 * 60 * 24 * 7;
 
@@ -72,6 +73,37 @@ export async function signIn(params: SignInParams) {
     return {
       success: false,
       message: "Failed to log into an account.",
+    };
+  }
+}
+
+export async function signInWithGoogle(params: { idToken: string; email: string; name: string; uid: string }) {
+  const { idToken, email, name, uid } = params;
+
+  try {
+    // Check if user exists in Firestore
+    const userRecord = await db.collection("users").doc(uid).get();
+
+    // If user doesn't exist, create them
+    if (!userRecord.exists) {
+      await db.collection("users").doc(uid).set({
+        name,
+        email,
+        isAdmin: false,
+      });
+    }
+
+    await setSessionCookie(idToken);
+
+    return {
+      success: true,
+      message: "Google sign-in successful",
+    };
+  } catch (e) {
+    console.error("Error with Google sign-in", e);
+    return {
+      success: false,
+      message: "Failed to sign in with Google",
     };
   }
 }
