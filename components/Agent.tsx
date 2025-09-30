@@ -1,13 +1,14 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { vapi } from "@/lib/vapi.sdk"
+import { vapi, enumerateAudioDevicesWithRetry, audioConstraints, preWarmAudioDevices } from "@/lib/vapi.sdk"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { Mic, MicOff, Phone, PhoneOff } from "lucide-react"
+import { Mic, MicOff, Phone, PhoneOff, AlertTriangle } from "lucide-react"
 import { createFeedback } from "@/lib/actions/general.action"
 import { interviewer } from "@/constants"
+import { toast } from "sonner"
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -34,6 +35,51 @@ export default function Agent({ userName, userId, interviewId, type, questions =
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE)
   const [messages, setMessages] = useState<SavedMessage[]>([])
+  const [audioPermission, setAudioPermission] = useState<boolean | null>(null)
+  const [audioDevicesAvailable, setAudioDevicesAvailable] = useState<boolean | null>(null)
+
+  // Check audio permissions and devices on component mount
+  useEffect(() => {
+    const checkAudioCapabilities = async () => {
+      try {
+        // Check if mediaDevices API is available
+        if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+          setAudioDevicesAvailable(false)
+          setAudioPermission(false)
+          return
+        }
+
+        // Pre-warm audio devices to reduce VAPI enumeration time
+        await preWarmAudioDevices()
+
+        // Check for audio input devices with enhanced retry logic
+        try {
+          const audioInputDevices = await enumerateAudioDevicesWithRetry(5000, 3)
+          setAudioDevicesAvailable(audioInputDevices.length > 0)
+        } catch (enumerateError) {
+          console.warn('Audio device enumeration failed after retries:', enumerateError)
+          setAudioDevicesAvailable(false)
+        }
+
+        // Check microphone permission with enhanced audio constraints
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: audioConstraints })
+          setAudioPermission(true)
+          // Clean up the stream
+          stream.getTracks().forEach(track => track.stop())
+        } catch (permissionError) {
+          console.warn('Microphone permission denied:', permissionError)
+          setAudioPermission(false)
+        }
+      } catch (error) {
+        console.error('Audio capability check failed:', error)
+        setAudioPermission(false)
+        setAudioDevicesAvailable(false)
+      }
+    }
+
+    checkAudioCapabilities()
+  }, [])
 
   // Event binding (GenerationAgent style)
   useEffect(() => {
@@ -50,7 +96,10 @@ export default function Agent({ userName, userId, interviewId, type, questions =
 
     const onSpeechStart = () => setIsSpeaking(true)
     const onSpeechEnd = () => setIsSpeaking(false)
-    const onError = (error: Error) => console.error("Error:", error)
+    const onError = (error: Error) => {
+      console.error("VAPI Error:", error)
+      toast.error("Audio connection error. Please check your microphone and try again.")
+    }
 
     vapi.on("call-start", onCallStart)
     vapi.on("call-end", onCallEnd)
@@ -98,7 +147,19 @@ export default function Agent({ userName, userId, interviewId, type, questions =
 
   // Start / End call handlers
   const handleCall = async () => {
+    // Check audio capabilities before starting call
+    if (audioPermission === false) {
+      toast.error("Microphone permission is required for the interview. Please allow microphone access and refresh the page.")
+      return
+    }
+
+    if (audioDevicesAvailable === false) {
+      toast.error("No audio input devices found. Please connect a microphone and refresh the page.")
+      return
+    }
+
     setCallStatus(CallStatus.CONNECTING)
+
     try {
       if (type === "generate") {
         await vapi.start(undefined, undefined, undefined, process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
@@ -117,6 +178,16 @@ export default function Agent({ userName, userId, interviewId, type, questions =
       }
     } catch (error) {
       console.error("Failed to start call:", error)
+      const errorMessage = error instanceof Error ? error.message : "Unknown error"
+      
+      if (errorMessage.includes("permission") || errorMessage.includes("microphone")) {
+        toast.error("Microphone access denied. Please allow microphone permission and try again.")
+      } else if (errorMessage.includes("device") || errorMessage.includes("audio")) {
+        toast.error("Audio device error. Please check your microphone connection.")
+      } else {
+        toast.error("Failed to start interview. Please check your internet connection and try again.")
+      }
+      
       setCallStatus(CallStatus.INACTIVE)
     }
   }
@@ -131,6 +202,28 @@ export default function Agent({ userName, userId, interviewId, type, questions =
 
   return (
     <section className="w-full space-y-8">
+      {/* Audio Status Warning */}
+      {(audioPermission === false || audioDevicesAvailable === false) && (
+        <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 mb-6">
+          <div className="flex items-center gap-3">
+            <AlertTriangle className="w-5 h-5 text-yellow-500 flex-shrink-0" />
+            <div className="text-sm">
+              <p className="font-medium text-yellow-600 dark:text-yellow-400 mb-1">Audio Setup Required</p>
+              {audioPermission === false && (
+                <p className="text-yellow-600/80 dark:text-yellow-400/80">
+                  Microphone permission is required for the interview. Please allow access when prompted.
+                </p>
+              )}
+              {audioDevicesAvailable === false && (
+                <p className="text-yellow-600/80 dark:text-yellow-400/80">
+                  No microphone detected. Please connect an audio input device.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Call Interface */}
       <div className="call-view">
         {/* AI Interviewer */}
@@ -212,16 +305,25 @@ export default function Agent({ userName, userId, interviewId, type, questions =
       <div className="flex justify-center">
         {callStatus !== CallStatus.ACTIVE ? (
           <button
-            className={cn("btn-call relative overflow-hidden", callStatus === CallStatus.CONNECTING && "animate-pulse")}
+            className={cn(
+              "btn-call relative overflow-hidden", 
+              callStatus === CallStatus.CONNECTING && "animate-pulse",
+              (audioPermission === false || audioDevicesAvailable === false) && "opacity-50 cursor-not-allowed"
+            )}
             onClick={handleCall}
-            disabled={callStatus === CallStatus.CONNECTING}
+            disabled={callStatus === CallStatus.CONNECTING || audioPermission === false || audioDevicesAvailable === false}
           >
             {callStatus === CallStatus.CONNECTING && (
               <span className="absolute animate-ping rounded-full opacity-75 size-full bg-emerald-400/30" />
             )}
             <span className="relative z-10 flex items-center gap-2">
               <Phone className="w-5 h-5" />
-              {isCallIdle ? "Start Interview" : "Connecting..."}
+              {audioPermission === null || audioDevicesAvailable === null 
+                ? "Checking Audio..." 
+                : isCallIdle 
+                  ? "Start Interview" 
+                  : "Connecting..."
+              }
             </span>
           </button>
         ) : (
