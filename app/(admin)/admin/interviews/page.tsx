@@ -632,7 +632,7 @@ export default function AdminInterviewsPage() {
                         </div>
                         <div>
                           <div className="text-sm md:text-base font-medium text-foreground capitalize">
-                            {interview.role} Developer
+                            {interview.role}
                           </div>
                           <div className="text-xs text-muted-foreground flex items-center gap-1">
                             <User className="w-3 h-3" />

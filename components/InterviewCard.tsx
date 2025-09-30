@@ -57,7 +57,7 @@ const InterviewCard = async ({ id, userId, role, type, techstack, createdAt }: I
           </div>
 
           <div className="flex-1 min-w-0">
-            <h3 className="text-xl font-semibold text-foreground capitalize line-clamp-2 mb-2">{role} Developer Interview</h3>
+            <h3 className="text-xl font-semibold text-foreground capitalize line-clamp-2 mb-2">{role} Interview</h3>
           </div>
         </div>
 

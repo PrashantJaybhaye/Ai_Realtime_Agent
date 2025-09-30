@@ -213,7 +213,7 @@ export default function InterviewDetailsModal({
                 ) : (
                   <>
                     <h3 className="text-base sm:text-lg font-semibold text-foreground capitalize">
-                      {interviewDetails.role} Developer Interview
+                      {interviewDetails.role} Interview
                     </h3>
                     <div className="flex flex-wrap gap-1 sm:gap-2">
                       <Badge variant="outline" className="capitalize text-xs">
