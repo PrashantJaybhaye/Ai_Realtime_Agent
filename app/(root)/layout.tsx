@@ -7,7 +7,7 @@ import React, { ReactNode } from 'react'
 const RootLayout = async ({ children }: { children: ReactNode }) => {
     const isUserAuthenticated = await isAuthenticated();
 
-    if (!isUserAuthenticated) redirect('/landing/failed')
+    if (!isUserAuthenticated) redirect('/landing')
     
     const user = await getCurrentUser();
     

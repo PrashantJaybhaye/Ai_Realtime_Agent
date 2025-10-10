@@ -6,7 +6,7 @@ import { LogIn } from "lucide-react";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/10 backdrop-blur-xl border-b border-border/40 shadow-lg">
+    <nav className="fixed top-0 w-full z-50 bg-background/10 backdrop-blur-xl shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-4 max-sm:py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
