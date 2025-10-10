@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { Play, Sparkles, TrendingUp, Users, Zap, ArrowRight, Clock, Target, CheckCircle } from 'lucide-react'
+import { Play, Sparkles, TrendingUp, Users, Zap, ArrowRight, Clock, Target, CheckCircle, MoveUpRight } from 'lucide-react'
 import { getCurrentUser } from '@/lib/actions/auth.action'
 import { getInterviewByUserId, getLatestInterviews } from '@/lib/actions/general.action'
 import UserError from '@/components/UserError'
@@ -91,7 +91,10 @@ const Page = async () => {
                     </div>
                     <div className="text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">1000+</div>
                     <div className="text-base font-medium text-muted-foreground">Interviews Completed</div>
-                    <div className="text-xs text-green-500 mt-1">↗ +15% this month</div>
+                    <div className="text-xs text-green-500 mt-1">
+                        <MoveUpRight className="h-3 w-3 text-green-500 ml-1 inline-block" />
+                        {" "}+15% this month
+                    </div>
                 </div>
 
                 <div className="stats-card group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
@@ -100,7 +103,10 @@ const Page = async () => {
                     </div>
                     <div className="text-3xl mb-2 font-extrabold bg-gradient-to-b from-neutral-50 to-neutral-600 text-transparent bg-clip-text">95%</div>
                     <div className="text-base font-medium text-muted-foreground">Success Rate</div>
-                    <div className="text-xs text-green-500 mt-1">↗ +2% improvement</div>
+                    <div className="text-xs text-green-500 mt-1">
+                        <MoveUpRight className="h-3 w-3 text-green-500 ml-1 inline-block" />
+                        {" "}+2% improvement
+                    </div>
                 </div>
 
                 <div className="stats-card group hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
