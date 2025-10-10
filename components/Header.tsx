@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { LogOut, Shield, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
     DropdownMenu,
     DropdownMenuTrigger,
@@ -112,9 +113,11 @@ export default function Header({ user }: HeaderProps) {
                                 <div className="flex items-center gap-2 cursor-pointer group transition hover:opacity-90">
                                     {/* Avatar (smaller, clean) */}
                                     {user.photoURL ? (
-                                        <img
+                                        <Image
                                             src={user.photoURL}
                                             alt={user.name || "User"}
+                                            width={32}
+                                            height={32}
                                             className="w-8 h-8 rounded-full object-cover"
                                         />
                                     ) : (
@@ -133,9 +136,11 @@ export default function Header({ user }: HeaderProps) {
                                 {/* User Info */}
                                 <div className="flex items-center gap-3 mb-3">
                                     {user.photoURL ? (
-                                        <img
+                                        <Image
                                             src={user.photoURL}
                                             alt={user.name || "User"}
+                                            width={40}
+                                            height={40}
                                             className="w-10 h-10 rounded-full object-cover"
                                         />
                                     ) : (
@@ -258,9 +263,11 @@ export default function Header({ user }: HeaderProps) {
                                 <div className="flex items-center gap-4 px-4 py-3 rounded-xl bg-card/40 border border-border/30 shadow-sm mb-4">
                                     {/* Avatar Circle */}
                                     {user?.photoURL ? (
-                                        <img
+                                        <Image
                                             src={user.photoURL}
                                             alt={user.name || "User"}
+                                            width={44}
+                                            height={44}
                                             className="w-11 h-11 rounded-full object-cover"
                                         />
                                     ) : (
