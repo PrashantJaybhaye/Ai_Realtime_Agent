@@ -98,7 +98,7 @@ export default function Agent({ userName, userId, interviewId, type, questions =
     const onSpeechEnd = () => setIsSpeaking(false)
     const onError = (error: Error) => {
       console.error("VAPI Error:", error)
-      toast.error("Audio connection error. Please check your microphone and try again.")
+      toast.error("Audio connection error. Please check your microphone/internet and try again.")
     }
 
     vapi.on("call-start", onCallStart)
