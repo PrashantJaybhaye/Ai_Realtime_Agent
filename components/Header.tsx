@@ -18,6 +18,7 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import Image from 'next/image'
 
 interface HeaderProps {
     user: User | null
@@ -111,9 +112,19 @@ export default function Header({ user }: HeaderProps) {
                             <DropdownMenuTrigger asChild>
                                 <div className="flex items-center gap-2 cursor-pointer group transition hover:opacity-90">
                                     {/* Avatar (smaller, clean) */}
-                                    <div className="w-8 h-8 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center uppercase text-xs">
-                                        {user.name?.charAt(0) || "U"}
-                                    </div>
+                                    {user.photoURL ? (
+                                        <Image
+                                            src={user.photoURL}
+                                            alt={user.name || "User"}
+                                            width={32}
+                                            height={32}
+                                            className="w-8 h-8 rounded-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-8 h-8 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center uppercase text-xs">
+                                            {user.name?.charAt(0) || "U"}
+                                        </div>
+                                    )}
                                     <span className="text-sm font-medium text-foreground">{user.name}</span>
                                 </div>
                             </DropdownMenuTrigger>
@@ -124,9 +135,19 @@ export default function Header({ user }: HeaderProps) {
                             >
                                 {/* User Info */}
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="w-10 h-10 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center uppercase text-sm">
-                                        {user?.name?.charAt(0) || "U"}
-                                    </div>
+                                    {user.photoURL ? (
+                                        <Image
+                                            src={user.photoURL}
+                                            alt={user.name || "User"}
+                                            width={40}
+                                            height={40}
+                                            className="w-10 h-10 rounded-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="w-10 h-10 rounded-full bg-primary/20 text-primary font-bold flex items-center justify-center uppercase text-sm">
+                                            {user?.name?.charAt(0) || "U"}
+                                        </div>
+                                    )}
                                     <div className="flex flex-col">
                                         <h4 className="text-sm font-semibold">{user.name}</h4>
                                         <p className="text-xs text-muted-foreground truncate">{user.email}</p>
@@ -241,9 +262,19 @@ export default function Header({ user }: HeaderProps) {
                                 {/* Mobile User Profile */}
                                 <div className="flex items-center gap-4 px-4 py-3 rounded-xl bg-card/40 border border-border/30 shadow-sm mb-4">
                                     {/* Avatar Circle */}
-                                    <div className="flex items-center justify-center w-11 h-11 rounded-full bg-primary/20 text-primary text-sm font-semibold uppercase">
-                                        {user?.name?.charAt(0) || 'U'}
-                                    </div>
+                                    {user?.photoURL ? (
+                                        <Image
+                                            src={user.photoURL}
+                                            alt={user.name || "User"}
+                                            width={44}
+                                            height={44}
+                                            className="w-11 h-11 rounded-full object-cover"
+                                        />
+                                    ) : (
+                                        <div className="flex items-center justify-center w-11 h-11 rounded-full bg-primary/20 text-primary text-sm font-semibold uppercase">
+                                            {user?.name?.charAt(0) || 'U'}
+                                        </div>
+                                    )}
 
                                     {/* User Info */}
                                     <div className="flex flex-col w-full">
