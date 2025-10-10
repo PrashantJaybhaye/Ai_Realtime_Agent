@@ -162,6 +162,12 @@ export async function signInWithGoogle(params: SignInParams) {
         name: userRecord.displayName || "",
         email: userRecord.email,
         isAdmin: false,
+        photoURL: userRecord.photoURL || null,
+      });
+    } else {
+      // Update photoURL if it changed
+      await db.collection("users").doc(userRecord.uid).update({
+        photoURL: userRecord.photoURL || null,
       });
     }
 

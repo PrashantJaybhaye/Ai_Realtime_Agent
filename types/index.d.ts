@@ -38,6 +38,7 @@ interface User {
   id: string;
   isAdmin: boolean;
   joinDate?: string;
+  photoURL?: string;
 }
 
 interface InterviewCardProps {
